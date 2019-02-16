@@ -1,11 +1,13 @@
-<!--?php require('includes/config.php');
+<?php require('../classes/database.php');
 
-//if logged in redirect to members page
-if( $user->is_logged_in() ){ header('Location: memberpage.php'); exit(); }
+//if logged in redirect to staff page
+if( $user->is_logged_in() ){ header('Location: dashboard.php'); exit(); }
 
 //if form has been submitted process it
 if(isset($_POST['submit'])){
 
+    if (!isset($_POST['firstname'])) $error[] = "Please fill out all fields";
+    if (!isset($_POST['lastname'])) $error[] = "Please fill out all fields";
     if (!isset($_POST['username'])) $error[] = "Please fill out all fields";
     if (!isset($_POST['email'])) $error[] = "Please fill out all fields";
     if (!isset($_POST['password'])) $error[] = "Please fill out all fields";
@@ -16,7 +18,7 @@ if(isset($_POST['submit'])){
   if(!$user->isValidUsername($username)){
     $error[] = 'Usernames must be at least 3 Alphanumeric characters';
   } else {
-    $stmt = $db->prepare('SELECT username FROM members WHERE username = :username');
+    $stmt = $db->prepare('SELECT username FROM staff WHERE username = :username');
     $stmt->execute(array(':username' => $username));
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -43,7 +45,7 @@ if(isset($_POST['submit'])){
   if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
       $error[] = 'Please enter a valid email address';
   } else {
-    $stmt = $db->prepare('SELECT email FROM members WHERE email = :email');
+    $stmt = $db->prepare('SELECT email FROM staff WHERE email = :email');
     $stmt->execute(array(':email' => $email));
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -60,20 +62,22 @@ if(isset($_POST['submit'])){
     //hash the password
     $hashedpassword = $user->password_hash($_POST['password'], PASSWORD_BCRYPT);
 
-    //create the activasion code
+    //create the activation code
     $activasion = md5(uniqid(rand(),true));
 
     try {
 
       //insert into database with a prepared statement
-      $stmt = $db->prepare('INSERT INTO members (username,password,email,active) VALUES (:username, :password, :email, :active)');
+      $stmt = $db->prepare('INSERT INTO staff (firstname,lastname,username,password,email,active) VALUES (:firstname,:lastname,:username, :password, :email, :active)');
       $stmt->execute(array(
+        ':firstname' => $firstname,
+        ':lastname' => $lastname,
         ':username' => $username,
         ':password' => $hashedpassword,
         ':email' => $email,
-        ':active' => $activasion
+        ':active' => $activation
       ));
-      $id = $db->lastInsertId('memberID');
+      $id = $db->lastInsertId('staffID');
 
       //send email
       $to = $_POST['email'];
@@ -102,12 +106,9 @@ if(isset($_POST['submit'])){
 
 }
 
-?-->
-
-
-
-
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -170,9 +171,12 @@ if(isset($_POST['submit'])){
                     <input type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password">
                   </div>
                 </div>
-                <a href="login.php" class="btn btn-primary btn-user btn-block">
+                <div class="col-xs-6 col-md-6">
+                  <input type="submit" name="submit" value="Register Account" class="btn btn-primary btn-user btn-block" tabindex="5">
+                </div>
+                <!--a href="login.php" class="btn btn-primary btn-user btn-block">
                   Register Account
-                </a>
+                </a-->
               </form>
               <hr>
               <div class="text-center">
