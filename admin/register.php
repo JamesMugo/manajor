@@ -1,110 +1,136 @@
 <?php require('../classes/database.php');
 
 //if logged in redirect to staff page
-if( $user->is_logged_in() ){ header('Location: dashboard.php'); exit(); }
+// if( $user->is_logged_in() ){ header('Location: dashboard.php'); exit(); }
 
 //if form has been submitted process it
-if(isset($_POST['submit'])){
+if(isset($_POST['submit']) && $_POST['InputPassword'] == $_POST['RepeatPassword']){
 
-    if (!isset($_POST['firstname'])) $error[] = "Please fill out all fields";
-    if (!isset($_POST['lastname'])) $error[] = "Please fill out all fields";
-    if (!isset($_POST['username'])) $error[] = "Please fill out all fields";
-    if (!isset($_POST['email'])) $error[] = "Please fill out all fields";
-    if (!isset($_POST['password'])) $error[] = "Please fill out all fields";
+  $FirstName = $_POST['FirstName'];
+  $LastName = $_POST['LastName'];
+  $Username = $_POST['Username'];
+  $InputEmail = $_POST['InputEmail'];
+  $InputPassword = $_POST['InputPassword'];
+  $RepeatPassword = $_POST['RepeatPassword'];
 
-  $username = $_POST['username'];
+  $query="INSERT INTO staff(firstname, lastname, username, password, email) VALUES ($FirstName,$LastName,$Username,$InputPassword,$InputEmail)";
 
-  //very basic validation
-  if(!$user->isValidUsername($username)){
-    $error[] = 'Usernames must be at least 3 Alphanumeric characters';
+  if (mysqli_query($conn, $query)) {
+     echo "New record created successfully";
   } else {
-    $stmt = $db->prepare('SELECT username FROM staff WHERE username = :username');
-    $stmt->execute(array(':username' => $username));
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+     echo "Error: " . $sql . "" . mysqli_error($conn);
+  }
+  $conn->close();
+  
 
-    if(!empty($row['username'])){
-      $error[] = 'Username provided is already in use.';
+
+
+
+
+
+
+
     }
 
-  }
+  //   if (!isset($_POST['firstname'])) $error[] = "Please fill out all fields";
+  //   if (!isset($_POST['lastname'])) $error[] = "Please fill out all fields";
+  //   if (!isset($_POST['username'])) $error[] = "Please fill out all fields";
+  //   if (!isset($_POST['email'])) $error[] = "Please fill out all fields";
+  //   if (!isset($_POST['password'])) $error[] = "Please fill out all fields";
 
-  if(strlen($_POST['password']) < 3){
-    $error[] = 'Password is too short.';
-  }
+  // $username = $_POST['username'];
 
-  if(strlen($_POST['passwordConfirm']) < 3){
-    $error[] = 'Confirm password is too short.';
-  }
+  // //very basic validation
+  // if(!$user->isValidUsername($username)){
+  //   $error[] = 'Usernames must be at least 3 Alphanumeric characters';
+  // } else {
+  //   $stmt = $db->prepare('SELECT username FROM staff WHERE username = :username');
+  //   $stmt->execute(array(':username' => $username));
+  //   $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-  if($_POST['password'] != $_POST['passwordConfirm']){
-    $error[] = 'Passwords do not match.';
-  }
+  //   if(!empty($row['username'])){
+  //     $error[] = 'Username provided is already in use.';
+  //   }
 
-  //email validation
-  $email = htmlspecialchars_decode($_POST['email'], ENT_QUOTES);
-  if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-      $error[] = 'Please enter a valid email address';
-  } else {
-    $stmt = $db->prepare('SELECT email FROM staff WHERE email = :email');
-    $stmt->execute(array(':email' => $email));
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+  // }
 
-    if(!empty($row['email'])){
-      $error[] = 'Email provided is already in use.';
-    }
+  // if(strlen($_POST['password']) < 3){
+  //   $error[] = 'Password is too short.';
+  // }
 
-  }
+  // if(strlen($_POST['passwordConfirm']) < 3){
+  //   $error[] = 'Confirm password is too short.';
+  // }
+
+  // if($_POST['password'] != $_POST['passwordConfirm']){
+  //   $error[] = 'Passwords do not match.';
+  // }
+
+  // //email validation
+  // $email = htmlspecialchars_decode($_POST['email'], ENT_QUOTES);
+  // if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+  //     $error[] = 'Please enter a valid email address';
+  // } else {
+  //   $stmt = $db->prepare('SELECT email FROM staff WHERE email = :email');
+  //   $stmt->execute(array(':email' => $email));
+  //   $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+  //   if(!empty($row['email'])){
+  //     $error[] = 'Email provided is already in use.';
+  //   }
+
+  // }
 
 
   //if no errors have been created carry on
-  if(!isset($error)){
+//   if(!isset($error)){
 
-    //hash the password
-    $hashedpassword = $user->password_hash($_POST['password'], PASSWORD_BCRYPT);
+//     //hash the password
+//     $hashedpassword = $user->password_hash($_POST['password'], PASSWORD_BCRYPT);
 
-    //create the activation code
-    $activasion = md5(uniqid(rand(),true));
+//     //create the activation code
+//     $activasion = md5(uniqid(rand(),true));
 
-    try {
+//     try {
 
-      //insert into database with a prepared statement
-      $stmt = $db->prepare('INSERT INTO staff (firstname,lastname,username,password,email,active) VALUES (:firstname,:lastname,:username, :password, :email, :active)');
-      $stmt->execute(array(
-        ':firstname' => $firstname,
-        ':lastname' => $lastname,
-        ':username' => $username,
-        ':password' => $hashedpassword,
-        ':email' => $email,
-        ':active' => $activation
-      ));
-      $id = $db->lastInsertId('staffID');
+//       //insert into database with a prepared statement
+//       $stmt = $db->prepare('INSERT INTO staff (firstname,lastname,username,password,email,active) VALUES (:firstname,:lastname,:username, :password, :email, :active)');
+//       $stmt->execute(array(
+//         ':firstname' => $firstname,
+//         ':lastname' => $lastname,
+//         ':username' => $username,
+//         ':password' => $hashedpassword,
+//         ':email' => $email,
+//         ':active' => $activation
+//       ));
+//       $id = $db->lastInsertId('staffID');
 
-      //send email
-      $to = $_POST['email'];
-      $subject = "Registration Confirmation";
-      $body = "<p>Thank you for registering at demo site.</p>
-      <p>To activate your account, please click on this link: <a href='".DIR."activate.php?x=$id&y=$activasion'>".DIR."activate.php?x=$id&y=$activasion</a></p>
-      <p>Regards Site Admin</p>";
+//       //send email
+//       $to = $_POST['email'];
+//       $subject = "Registration Confirmation";
+//       $body = "<p>Thank you for registering at demo site.</p>
+//       <p>To activate your account, please click on this link: <a href='".DIR."activate.php?x=$id&y=$activasion'>".DIR."activate.php?x=$id&y=$activasion</a></p>
+//       <p>Regards Site Admin</p>";
 
-      $mail = new Mail();
-      $mail->setFrom(SITEEMAIL);
-      $mail->addAddress($to);
-      $mail->subject($subject);
-      $mail->body($body);
-      $mail->send();
+//       $mail = new Mail();
+//       $mail->setFrom(SITEEMAIL);
+//       $mail->addAddress($to);
+//       $mail->subject($subject);
+//       $mail->body($body);
+//       $mail->send();
 
-      //redirect to index page
-      header('Location: index.php?action=joined');
-      exit;
+//       //redirect to index page
+//       header('Location: index.php?action=joined');
+//       exit;
 
-    //else catch the exception and show the error.
-    } catch(PDOException $e) {
-        $error[] = $e->getMessage();
-    }
+//     //else catch the exception and show the error.
+//     } catch(PDOException $e) {
+//         $error[] = $e->getMessage();
+//     }
 
-  }
+//   }
 
-}
+// }
 
 ?>
 
@@ -146,29 +172,29 @@ if(isset($_POST['submit'])){
               <div class="text-center">
                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
               </div>
-              <form class="user">
+              <form class="user" action="" method="POST">
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="First Name">
+                    <input type="text" class="form-control form-control-user" name="FirstName" placeholder="First Name">
                   </div>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-user" id="exampleLastName" placeholder="Last Name">
+                    <input type="text" class="form-control form-control-user" name="LastName" placeholder="Last Name">
                   </div>
                 </div>
                 <hr>
                   <div class="form-group">
-                    <input type="text" class="form-control form-control-user" id="exampleUsername" placeholder="Username">
+                    <input type="text" class="form-control form-control-user" name="Username" placeholder="Username">
                   </div>
                 <hr>
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Email Address">
+                  <input type="email" class="form-control form-control-user" name="InputEmail" placeholder="Email Address">
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+                    <input type="password" class="form-control form-control-user" name="InputPassword" placeholder="Password">
                   </div>
                   <div class="col-sm-6">
-                    <input type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password">
+                    <input type="password" class="form-control form-control-user" name="RepeatPassword" placeholder="Repeat Password">
                   </div>
                 </div>
                 <div class="col-xs-6 col-md-6">
