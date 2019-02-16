@@ -145,16 +145,16 @@
       <hr class="star-light mb-5">
       <div class="row">
         <div class="col-lg-4 ml-auto">
-          <p class="lead">Freelancer is a free bootstrap theme created by Start Bootstrap. The download includes the complete source files including HTML, CSS, and JavaScript as well as optional LESS stylesheets for easy customization.</p>
+          <p class="lead">Manajor is a web application that helps agents in respective agencies manage property owners as well as tenants.</p>
         </div>
         <div class="col-lg-4 mr-auto">
-          <p class="lead">Whether you're a student looking to showcase your work, a professional looking to attract clients, or a graphic artist looking to share your projects, this template is the perfect starting point!</p>
+          <p class="lead">Whether you're an agent managing one plot, or you're managing multiple owners, Manajor is your application.</p>
         </div>
       </div>
       <div class="text-center mt-4">
         <a class="btn btn-xl btn-outline-light" href="#">
-          <i class="fas fa-download mr-2"></i>
-          Download Now!
+          <i class="fas fa-expand mr-2"></i>
+          More on Manajor!
         </a>
       </div>
     </div>
@@ -163,7 +163,7 @@
   <!-- Contact Section -->
   <section id="contact">
     <div class="container">
-      <h2 class="text-center text-uppercase text-secondary mb-0">Contact Me</h2>
+      <h2 class="text-center text-uppercase text-secondary mb-0">Contact Us</h2>
       <hr class="star-dark mb-5">
       <div class="row">
         <div class="col-lg-8 mx-auto">
@@ -215,8 +215,8 @@
       <div class="row">
         <div class="col-md-4 mb-5 mb-lg-0">
           <h4 class="text-uppercase mb-4">Location</h4>
-          <p class="lead mb-0">2215 John Daniel Drive
-            <br>Clark, MO 65243</p>
+          <p class="lead mb-0">Nairobi, Kenya
+            <br>Upperhill, 75104-10200</p>
         </div>
         <div class="col-md-4 mb-5 mb-lg-0">
           <h4 class="text-uppercase mb-4">Around the Web</h4>
@@ -249,9 +249,9 @@
           </ul>
         </div>
         <div class="col-md-4">
-          <h4 class="text-uppercase mb-4">About Freelancer</h4>
-          <p class="lead mb-0">Freelance is a free to use, open source Bootstrap theme created by
-            <a href="http://startbootstrap.com">Start Bootstrap</a>.</p>
+          <h4 class="text-uppercase mb-4">Manajor</h4>
+          <p class="lead mb-0">Your partner in management, created by
+            <a href="http://startbootstrap.com">Manajor</a>.</p>
         </div>
       </div>
     </div>
@@ -259,7 +259,7 @@
 
   <div class="copyright py-4 text-center text-white">
     <div class="container">
-      <small>Copyright &copy; Your Website 2019</small>
+      <small>Copyright &copy; Manajor 2019</small>
     </div>
   </div>
 

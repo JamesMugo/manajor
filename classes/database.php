@@ -1,36 +1,32 @@
 <?php
-ob_start();
-session_start();
-
-//set timezone
-date_default_timezone_set('Europe/London');
-
-//database credentials
-define('DBHOST','localhost');
-define('DBUSER','root');
-define('DBPASS','');
-define('DBNAME','tester');
-
-//application address
-define('DIR','http://domain.com/');
-define('SITEEMAIL','noreply@domain.com');
-
-try {
-
-	//create PDO connection
-	$db = new PDO("mysql:host=".DBHOST.";charset=utf8mb4;dbname=".DBNAME, DBUSER, DBPASS);
-    //$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);//Suggested to uncomment on production websites
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);//Suggested to comment on production websites
-    $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-
-} catch(PDOException $e) {
-	//show error
-    echo '<p class="bg-danger">'.$e->getMessage().'</p>';
-    exit;
+class Database{
+ 
+    // specify your own database credentials
+    private $host = "localhost";
+    private $db_name = "manajor";
+    private $username = "root";
+    private $password = "";
+    public $conn;
+ 
+    // get the database connection
+    public function getConnection(){
+ 
+        $this->conn = null;
+ 
+        try{
+            $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->db_name, $this->username, $this->password);
+            $this->conn->exec("set names utf8");
+        }catch(PDOException $exception){
+            echo "Connection error: " . $exception->getMessage();
+        }
+        return $this->conn;
+    }
 }
 
-//include the user class, pass in the database connection
-include('classes/user.php');
-include('classes/phpmailer/mail.php');
-$user = new User($db);
+$connect = new Database;
+if ($connect->getConnection()) {
+	echo "successful";
+}else{
+	echo "not successful";
+}
 ?>
