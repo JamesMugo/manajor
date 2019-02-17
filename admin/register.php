@@ -22,7 +22,6 @@ if(isset($_POST['submit']) && $_POST['InputPassword'] == $_POST['RepeatPassword'
      echo "New record created successfully";
   } else {
      echo "Error: " . $query . "" . mysqli_error($conn);
-
   }
   $conn->close();
 

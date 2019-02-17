@@ -7,8 +7,9 @@ if(isset($_POST['submit'])){
   $inputPassword = $_POST['inputPassword'];
   $errorMsg='';
 
+  $pass = md5($inputPassword);
 
-  $query="SELECT username, password FROM staff WHERE username = '$username' and password = '$inputPassword'";
+  $query="SELECT username, password FROM staff WHERE username = '$username' and password = '$pass'";
 
   $result = mysqli_query($conn,$query);
   $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
@@ -20,7 +21,7 @@ if(isset($_POST['submit'])){
   if($count == 1) {      
     header("location: dashboard.php");
    }else {
-         $errorMsg = "Wrong username/password";
+         $errorMsg = "Wrong username/password combination";
          // echo $error;
   }
 
