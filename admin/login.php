@@ -5,19 +5,25 @@ if(isset($_POST['submit'])){
 
   $username = $_POST['username'];
   $inputPassword = $_POST['inputPassword'];
+  $errorMsg='';
 
-  echo $username;
-  echo $inputPassword;
-  
 
   $query="SELECT username, password FROM staff WHERE username = '$username' and password = '$inputPassword'";
 
-  if (mysqli_query($conn, $query)) {
-    header('Location: dashboard.php');
-  } else {
-     echo "Error: " . $query . "" . mysqli_error($conn);
+  $result = mysqli_query($conn,$query);
+  $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
 
+  $count = mysqli_num_rows($result);
+
+  // If result matched $myusername and $mypassword, table row must be 1 row
+    
+  if($count == 1) {      
+    header("location: dashboard.php");
+   }else {
+         $errorMsg = "Wrong username/password";
+         // echo $error;
   }
+
   $conn->close();
 }
 ?>
@@ -63,6 +69,7 @@ if(isset($_POST['submit'])){
                 <div class="p-5">
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                    <span style="color: red"><?php if(isset($errorMsg))echo $errorMsg; ?></span>
                   </div>
                   <form class="user" action="" method="POST">
                     <div class="form-group">
