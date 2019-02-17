@@ -13,125 +13,20 @@ if(isset($_POST['submit']) && $_POST['InputPassword'] == $_POST['RepeatPassword'
   $InputPassword = $_POST['InputPassword'];
   $RepeatPassword = $_POST['RepeatPassword'];
 
-  $query="INSERT INTO staff(firstname, lastname, username, password, email) VALUES ($FirstName,$LastName,$Username,$InputPassword,$InputEmail)";
+  $pass = md5($InputPassword);
+
+  $query="INSERT INTO staff(firstname, lastname, username, password, email) VALUES ('$FirstName','$LastName','$Username','$pass','$InputEmail')";
 
   if (mysqli_query($conn, $query)) {
+    header('Location: login.php');
      echo "New record created successfully";
   } else {
-     echo "Error: " . $sql . "" . mysqli_error($conn);
+     echo "Error: " . $query . "" . mysqli_error($conn);
+
   }
   $conn->close();
-  
 
-
-
-
-
-
-
-
-    }
-
-  //   if (!isset($_POST['firstname'])) $error[] = "Please fill out all fields";
-  //   if (!isset($_POST['lastname'])) $error[] = "Please fill out all fields";
-  //   if (!isset($_POST['username'])) $error[] = "Please fill out all fields";
-  //   if (!isset($_POST['email'])) $error[] = "Please fill out all fields";
-  //   if (!isset($_POST['password'])) $error[] = "Please fill out all fields";
-
-  // $username = $_POST['username'];
-
-  // //very basic validation
-  // if(!$user->isValidUsername($username)){
-  //   $error[] = 'Usernames must be at least 3 Alphanumeric characters';
-  // } else {
-  //   $stmt = $db->prepare('SELECT username FROM staff WHERE username = :username');
-  //   $stmt->execute(array(':username' => $username));
-  //   $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-  //   if(!empty($row['username'])){
-  //     $error[] = 'Username provided is already in use.';
-  //   }
-
-  // }
-
-  // if(strlen($_POST['password']) < 3){
-  //   $error[] = 'Password is too short.';
-  // }
-
-  // if(strlen($_POST['passwordConfirm']) < 3){
-  //   $error[] = 'Confirm password is too short.';
-  // }
-
-  // if($_POST['password'] != $_POST['passwordConfirm']){
-  //   $error[] = 'Passwords do not match.';
-  // }
-
-  // //email validation
-  // $email = htmlspecialchars_decode($_POST['email'], ENT_QUOTES);
-  // if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-  //     $error[] = 'Please enter a valid email address';
-  // } else {
-  //   $stmt = $db->prepare('SELECT email FROM staff WHERE email = :email');
-  //   $stmt->execute(array(':email' => $email));
-  //   $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-  //   if(!empty($row['email'])){
-  //     $error[] = 'Email provided is already in use.';
-  //   }
-
-  // }
-
-
-  //if no errors have been created carry on
-//   if(!isset($error)){
-
-//     //hash the password
-//     $hashedpassword = $user->password_hash($_POST['password'], PASSWORD_BCRYPT);
-
-//     //create the activation code
-//     $activasion = md5(uniqid(rand(),true));
-
-//     try {
-
-//       //insert into database with a prepared statement
-//       $stmt = $db->prepare('INSERT INTO staff (firstname,lastname,username,password,email,active) VALUES (:firstname,:lastname,:username, :password, :email, :active)');
-//       $stmt->execute(array(
-//         ':firstname' => $firstname,
-//         ':lastname' => $lastname,
-//         ':username' => $username,
-//         ':password' => $hashedpassword,
-//         ':email' => $email,
-//         ':active' => $activation
-//       ));
-//       $id = $db->lastInsertId('staffID');
-
-//       //send email
-//       $to = $_POST['email'];
-//       $subject = "Registration Confirmation";
-//       $body = "<p>Thank you for registering at demo site.</p>
-//       <p>To activate your account, please click on this link: <a href='".DIR."activate.php?x=$id&y=$activasion'>".DIR."activate.php?x=$id&y=$activasion</a></p>
-//       <p>Regards Site Admin</p>";
-
-//       $mail = new Mail();
-//       $mail->setFrom(SITEEMAIL);
-//       $mail->addAddress($to);
-//       $mail->subject($subject);
-//       $mail->body($body);
-//       $mail->send();
-
-//       //redirect to index page
-//       header('Location: index.php?action=joined');
-//       exit;
-
-//     //else catch the exception and show the error.
-//     } catch(PDOException $e) {
-//         $error[] = $e->getMessage();
-//     }
-
-//   }
-
-// }
-
+}
 ?>
 
 
@@ -175,30 +70,30 @@ if(isset($_POST['submit']) && $_POST['InputPassword'] == $_POST['RepeatPassword'
               <form class="user" action="" method="POST">
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" name="FirstName" placeholder="First Name">
+                    <input type="text" class="form-control form-control-user" name="FirstName" placeholder="First Name" required="required">
                   </div>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-user" name="LastName" placeholder="Last Name">
+                    <input type="text" class="form-control form-control-user" name="LastName" placeholder="Last Name" required="required">
                   </div>
                 </div>
                 <hr>
                   <div class="form-group">
-                    <input type="text" class="form-control form-control-user" name="Username" placeholder="Username">
+                    <input type="text" class="form-control form-control-user" name="Username" placeholder="Username" required="required">
                   </div>
                 <hr>
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-user" name="InputEmail" placeholder="Email Address">
+                  <input type="email" class="form-control form-control-user" name="InputEmail" placeholder="Email Address" required="required">
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="password" class="form-control form-control-user" name="InputPassword" placeholder="Password">
+                    <input type="password" class="form-control form-control-user" name="InputPassword" placeholder="Password" required="required">
                   </div>
                   <div class="col-sm-6">
-                    <input type="password" class="form-control form-control-user" name="RepeatPassword" placeholder="Repeat Password">
+                    <input type="password" class="form-control form-control-user" name="RepeatPassword" placeholder="Repeat Password" required="required">
                   </div>
                 </div>
                 <div class="col-xs-6 col-md-6">
-                  <input type="submit" name="submit" value="Register Account" class="btn btn-primary btn-user btn-block" tabindex="5">
+                  <input type="submit" name="submit" value="Register Account" class="btn btn-primary btn-user btn-block" style="width: 210%">
                 </div>
                 <!--a href="login.php" class="btn btn-primary btn-user btn-block">
                   Register Account
