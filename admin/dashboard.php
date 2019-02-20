@@ -1,4 +1,5 @@
 <?php require('../classes/database.php');?>
+<?php require('../classes/functions.php');?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -62,8 +63,8 @@
         <div id="collapseOwners" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Manage Owners:</h6>
-            <a class="collapse-item" href="#tableManager">View</a>
-            <a class="collapse-item" href="#">Add</a>
+            <a class="collapse-item" href="owners.php">View</a>
+            <a class="collapse-item" href="addowners.php">Add</a>
             <a class="collapse-item" href="#">Update</a>
             <a class="collapse-item" href="#">Remove</a>
           </div>
@@ -351,80 +352,30 @@
             <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
           </div>
 
-          <!-- INSERTING PROPERTY OWNERS-->
-          <?php
-          if(isset($_POST['submit']) && $_POST['InputPassword'] == $_POST['RepeatPassword']){
-
-              $FirstName = $_POST['FirstName'];
-              $LastName = $_POST['LastName'];
-              $Username = $_POST['Username'];
-              $InputEmail = $_POST['InputEmail'];
-              $InputPassword = $_POST['InputPassword'];
-              $RepeatPassword = $_POST['RepeatPassword'];
-
-              $pass = md5($InputPassword);
-
-              $query="INSERT INTO staff(firstname, lastname, username, password, email) VALUES ('$FirstName','$LastName','$Username','$pass','$InputEmail')";
-
-              if (mysqli_query($conn, $query)) {
-                header('Location: login.php');
-                 echo "New record created successfully";
-              } else {
-                 echo "Error: " . $query . "" . mysqli_error($conn);
-              }
-              $conn->close();
-
-            }
-            ?>
-          <!--END OF INSERTION (PROPERTY OWNERS)-->
-
-
-            <div class="card shadow mb-4">
-              <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Property Owners</h6>
-              </div>
-
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                      <tr>
-                          <td>Id</td>
-                          <td>Username</td>
-                          <td>First Name</td>
-                          <td>Last Name</td>
-                          <td>Email Address</td>
-                      </tr>
-                  </thead>
-                  <tbody>
-                  <?php
-                      $query = "SELECT * FROM staff LIMIT 10";
-                      $result = mysqli_query($conn,$query);
-                      // $row = mysqli_fetch_array($ ,MYSQLI_ASSOC);
-
-                      while($row = mysqli_fetch_array($result)) {
-                      ?>
-                          <tr>
-                              <td><?php echo $row['staffID']?></td>
-                              <td><?php echo $row['username']?></td>
-                              <td><?php echo $row['firstname']?></td>
-                              <td><?php echo $row['lastname']?></td>
-                              <td><?php echo $row['email']?></td>
-                          </tr>
-
-                      <?php
-                      }
-                      ?>
-                  </tbody>
-                </table>
-              </div>
-
-
-
-
-            </div>
 
         </div>
       <!-- End of Main Content -->
+
+
+
+
+      <!--div class="card shadow mb-4" id="rightpanel">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Property Owners</h6>
+        </div>
+
+        <div class="table-responsive">
+          <?php echo displayContent(); ?>
+         
+        </div>
+
+
+
+
+      </div-->
+
+
+
 
 
     </div>

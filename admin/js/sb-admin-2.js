@@ -47,3 +47,9 @@
   });
 
 })(jQuery); // End of use strict
+
+function displayPropertyOwners() {
+    $.get("dashboard.php");
+    return false;
+}
+
