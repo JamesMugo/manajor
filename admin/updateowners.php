@@ -13,24 +13,14 @@ if(isset($_POST['submit'])){
   $rent = $_POST['rent'];
   $agreement = $_POST['agreement'];
 
-  // $folder_path = 'ownerForms/';
-
-  // $agreementFile = basename($_FILES['agreementForm']['name']);
-  // $newname = $folder_path . $agreement;
-
-  // //$FileType = pathinfo($newname,PATHINFO_EXTENSION);
-
-  // if(move_uploaded_file($_FILES['agreementForm']['tmp_name'], $newname)){
-
-      $query="INSERT INTO owners(firstname, lastname, idNumber, propertyOwned, location, rent, agreementForm) VALUES ('$firstname','$lastname','$id','$propertyOwned','$location','$    rent','$newname')";
+      $query="UPDATE owners SET firstname='$firstname',lastname='$lastname',propertyOwned='$propertyOwned',location='$location',rent='$rent',agreementForm='$agreement' WHERE idNumber='$id'";
 
       if (mysqli_query($conn, $query)) {
-         echo "Property owner added successfully";
+         echo "Property owner updated successfully";
       } else {
          echo "Error: " . $query . "" . mysqli_error($conn);  
       }
       $conn->close();
-    //}
 
 }
 ?>
@@ -99,8 +89,8 @@ if(isset($_POST['submit'])){
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Manage Owners:</h6>
             <a class="collapse-item" href="owners.php">View</a>
-            <a class="collapse-item" href="#addOwners">Add</a>
-            <a class="collapse-item" href="updateowners.php">Update</a>
+            <a class="collapse-item" href="addowners.php">Add</a>
+            <a class="collapse-item" href="#updateOwners">Update</a>
             <a class="collapse-item" href="removeOwner.php">Remove</a>
           </div>
         </div>
@@ -391,9 +381,9 @@ if(isset($_POST['submit'])){
         </div>
       <End of Main Content -->
 
-      <div class="card shadow mb-4" id="addOwners">
+      <div class="card shadow mb-4" id="updateOwners">
         <div class="card-header py-3">
-          <h6 class="m-0 font-weight-bold text-primary">Property Owners</h6>
+          <h6 class="m-0 font-weight-bold text-primary">Update property owners!</h6>
         </div>
 
 
@@ -409,7 +399,7 @@ if(isset($_POST['submit'])){
                   <div class="col-lg-7">
                     <div class="p-5">
                       <div class="text-center">
-                        <h1 class="h4 text-gray-900 mb-4">Add a property owner!</h1>
+                        <h1 class="h4 text-gray-900 mb-4">Update property owners!</h1>
                       </div>
                       <form class="user" action="" method="POST">
                         <div class="form-group row">
@@ -446,7 +436,7 @@ if(isset($_POST['submit'])){
                         </div>
                         <hr>
                         <div class="col-xs-6 col-md-6">
-                          <input type="submit" name="submit" value="Add Property Owner" class="btn btn-primary btn-user btn-block" style="width: 210%">
+                          <input type="submit" name="submit" value="Update" class="btn btn-primary btn-user btn-block" style="width: 210%">
                         </div>
                         <!--a href="login.php" class="btn btn-primary btn-user btn-block">
                           Register Account

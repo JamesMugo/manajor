@@ -5,27 +5,15 @@ require('../classes/functions.php');
 //if form has been submitted process it
 if(isset($_POST['submit'])){
 
-  $firstname = $_POST['firstname'];
-  $lastname = $_POST['lastname'];
-  $id = $_POST['id'];
-  $propertyOwned = $_POST['propertyOwned'];
-  $location = $_POST['location'];
-  $rent = $_POST['rent'];
-  $agreement = $_POST['agreement'];
+  $deleteId = $_POST['deleteId'];
 
-  // $folder_path = 'ownerForms/';
 
-  // $agreementFile = basename($_FILES['agreementForm']['name']);
-  // $newname = $folder_path . $agreement;
 
-  // //$FileType = pathinfo($newname,PATHINFO_EXTENSION);
 
-  // if(move_uploaded_file($_FILES['agreementForm']['tmp_name'], $newname)){
-
-      $query="INSERT INTO owners(firstname, lastname, idNumber, propertyOwned, location, rent, agreementForm) VALUES ('$firstname','$lastname','$id','$propertyOwned','$location','$    rent','$newname')";
+      $query="DELETE FROM owners WHERE ownerID = $deleteId";
 
       if (mysqli_query($conn, $query)) {
-         echo "Property owner added successfully";
+         echo "Property owner deleted successfully";
       } else {
          echo "Error: " . $query . "" . mysqli_error($conn);  
       }
@@ -34,7 +22,6 @@ if(isset($_POST['submit'])){
 
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -99,9 +86,9 @@ if(isset($_POST['submit'])){
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Manage Owners:</h6>
             <a class="collapse-item" href="owners.php">View</a>
-            <a class="collapse-item" href="#addOwners">Add</a>
+            <a class="collapse-item" href="addowners.php">Add</a>
             <a class="collapse-item" href="updateowners.php">Update</a>
-            <a class="collapse-item" href="removeOwner.php">Remove</a>
+            <a class="collapse-item" href="#removeOwner">Remove</a>
           </div>
         </div>
        </li>
@@ -389,76 +376,25 @@ if(isset($_POST['submit'])){
 
 
         </div>
-      <End of Main Content -->
-
-      <div class="card shadow mb-4" id="addOwners">
-        <div class="card-header py-3">
-          <h6 class="m-0 font-weight-bold text-primary">Property Owners</h6>
+      <!-- End of Main Content -->
+      <form action="" method="POST">
+        <div>
+        <label>Enter Property Owner's Id to remove</label>
+        <input type="text" name="idToRemove">
+        <input type="submit" name="deleteId" value="Delete Owner">  
         </div>
+        
+        <div class="card shadow mb-4" id="removeOwner">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Remove Property Owners</h6>
+          </div>
 
-
-
-        <div class="table-responsive">
-          <div class="container">
-
-            <div class="card o-hidden border-0 shadow-lg my-5">
-              <div class="card-body p-0">
-                <!-- Nested Row within Card Body -->
-                <div class="row">
-                  <!--div class="fas fa-user-plus" style="font-size: 2300%"></div-->
-                  <div class="col-lg-7">
-                    <div class="p-5">
-                      <div class="text-center">
-                        <h1 class="h4 text-gray-900 mb-4">Add a property owner!</h1>
-                      </div>
-                      <form class="user" action="" method="POST">
-                        <div class="form-group row">
-                          <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input type="text" class="form-control form-control-user" name="firstname" placeholder="First Name" required="required">
-                          </div>
-                          <div class="col-sm-6">
-                            <input type="text" class="form-control form-control-user" name="lastname" placeholder="Last Name" required="required">
-                          </div>
-                        </div>
-                        <hr>
-                        <div class="form-group row">
-                          <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input type="text" class="form-control form-control-user" name="id" placeholder="Owner's ID" required="required">
-                          </div>
-                          <div class="col-sm-6">
-                            <input type="text" class="form-control form-control-user" name="propertyOwned" placeholder="Property Owned" required="required">
-                          </div>
-                        </div>
-                        <hr>
-                        <div class="form-group row">
-                          <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input type="text" class="form-control form-control-user" name="location" placeholder="Location" required="required">
-                          </div>
-                          <div class="col-sm-6">
-                            <input type="text" class="form-control form-control-user" name="rent" placeholder="Rent" required="required">
-                          </div>
-                        </div>
-                        <hr>
-                        <div class="form-group row">
-                          <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input type="file" name="agreement" id="agreement"><label> Agreement Form </label>
-                          </div>
-                        </div>
-                        <hr>
-                        <div class="col-xs-6 col-md-6">
-                          <input type="submit" name="submit" value="Add Property Owner" class="btn btn-primary btn-user btn-block" style="width: 210%">
-                        </div>
-                        <!--a href="login.php" class="btn btn-primary btn-user btn-block">
-                          Register Account
-                        </a-->
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div class="table-responsive">
+            <?php echo displayContent(); ?>
+         
           </div>
         </div>
+      </form>
 
 
     </div>

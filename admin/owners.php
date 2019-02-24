@@ -64,9 +64,9 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Manage Owners:</h6>
             <a class="collapse-item" href="#rightpanel">View</a>
-            <a class="collapse-item" href="#addOwners">Add</a>
-            <a class="collapse-item" href="#">Update</a>
-            <a class="collapse-item" href="#">Remove</a>
+            <a class="collapse-item" href="addowners.php">Add</a>
+            <a class="collapse-item" href="updateowners.php">Update</a>
+            <a class="collapse-item" href="removeOwner.php">Remove</a>
           </div>
         </div>
        </li>
@@ -365,10 +365,6 @@
           <?php echo displayContent(); ?>
          
         </div>
-
-
-
-
       </div>
 
 

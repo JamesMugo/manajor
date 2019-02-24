@@ -65,8 +65,8 @@
             <h6 class="collapse-header">Manage Owners:</h6>
             <a class="collapse-item" href="owners.php">View</a>
             <a class="collapse-item" href="addowners.php">Add</a>
-            <a class="collapse-item" href="#">Update</a>
-            <a class="collapse-item" href="#">Remove</a>
+            <a class="collapse-item" href="updateowners.php">Update</a>
+            <a class="collapse-item" href="removeOwner.php">Remove</a>
           </div>
         </div>
        </li>
