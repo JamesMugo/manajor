@@ -20,10 +20,11 @@ function displayContent(){
 	  <table class='table table-bordered' id='dataTable' width='100%' cellspacing='0'>
 	    <thead>
 	        <tr>
-	            <td>Id</td>
+	            <td>Customer Id</td>
 	            <td>First Name</td>
 	            <td>Last Name</td>
 	            <td>Property</td>
+	            <td>Rent per unit</td>
 	        </tr>
 	    </thead>
 	    <tbody> ";
@@ -38,6 +39,7 @@ function displayContent(){
 	                <td>".$row['firstname']."</td>
 	                <td>". $row['lastname']."</td>
 	                <td>".$row['propertyOwned']."</td>
+	                <td>".$row['rent']."</td>
 	            </tr>";
 	        }
 	    

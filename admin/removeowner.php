@@ -5,12 +5,9 @@ require('../classes/functions.php');
 //if form has been submitted process it
 if(isset($_POST['submit'])){
 
-  $deleteId = $_POST['deleteId'];
+  $idToRemove = $_POST['idToRemove'];
 
-
-
-
-      $query="DELETE FROM owners WHERE ownerID = $deleteId";
+      $query="DELETE FROM owners WHERE ownerID = '$idToRemove'";
 
       if (mysqli_query($conn, $query)) {
          echo "Property owner deleted successfully";
@@ -18,7 +15,6 @@ if(isset($_POST['submit'])){
          echo "Error: " . $query . "" . mysqli_error($conn);  
       }
       $conn->close();
-    //}
 
 }
 ?>
@@ -379,9 +375,9 @@ if(isset($_POST['submit'])){
       <!-- End of Main Content -->
       <form action="" method="POST">
         <div>
-        <label>Enter Property Owner's Id to remove</label>
-        <input type="text" name="idToRemove">
-        <input type="submit" name="deleteId" value="Delete Owner">  
+            <label>Enter Property Owner's Id to remove</label>
+            <input type="text" name="idToRemove">
+            <input type="submit" name="submit" value="Delete Owner">  
         </div>
         
         <div class="card shadow mb-4" id="removeOwner">
@@ -391,7 +387,6 @@ if(isset($_POST['submit'])){
 
           <div class="table-responsive">
             <?php echo displayContent(); ?>
-         
           </div>
         </div>
       </form>

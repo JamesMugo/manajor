@@ -22,7 +22,7 @@ if(isset($_POST['submit'])){
 
   // if(move_uploaded_file($_FILES['agreementForm']['tmp_name'], $newname)){
 
-      $query="INSERT INTO owners(firstname, lastname, idNumber, propertyOwned, location, rent, agreementForm) VALUES ('$firstname','$lastname','$id','$propertyOwned','$location','$    rent','$newname')";
+      $query="INSERT INTO owners(firstname, lastname, idNumber, propertyOwned, location, rent, agreementForm) VALUES ('$firstname','$lastname','$id','$propertyOwned','$location','$rent','$agreement')";
 
       if (mysqli_query($conn, $query)) {
          echo "Property owner added successfully";
