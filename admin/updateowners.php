@@ -92,6 +92,7 @@ if(isset($_POST['submit'])){
             <a class="collapse-item" href="addowners.php">Add</a>
             <a class="collapse-item" href="#updateOwners">Update</a>
             <a class="collapse-item" href="removeOwner.php">Remove</a>
+            <a class="collapse-item" href="editOwners.php">Edit</a>
           </div>
         </div>
        </li>

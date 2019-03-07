@@ -1,5 +1,5 @@
 <?php require('../classes/database.php');?>
-<?php require('../classes/functions.php');?>
+<?php require('../classes/editFunctions.php');?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +12,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Manajor - Dashboard</title>
+  <title>Owners - Dashboard</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -357,26 +357,16 @@
         </div>
       <!-- End of Main Content -->
 
-
-
-
-      <!--div class="card shadow mb-4" id="rightpanel">
+      <div class="card shadow mb-4" id="rightpanel">
         <div class="card-header py-3">
           <h6 class="m-0 font-weight-bold text-primary">Property Owners</h6>
         </div>
 
         <div class="table-responsive">
-          <?php echo displayContent(); ?>
+          <?php echo editContent(); ?>
          
         </div>
-
-
-
-
-      </div-->
-
-
-
+      </div>
 
 
     </div>
