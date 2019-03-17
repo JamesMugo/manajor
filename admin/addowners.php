@@ -100,9 +100,6 @@ if(isset($_POST['submit'])){
             <h6 class="collapse-header">Manage Owners:</h6>
             <a class="collapse-item" href="owners.php">View</a>
             <a class="collapse-item" href="#addOwners">Add</a>
-            <a class="collapse-item" href="updateowners.php">Update</a>
-            <a class="collapse-item" href="removeOwner.php">Remove</a>
-            <a class="collapse-item" href="editOwners.php">Edit</a>
           </div>
         </div>
        </li>
@@ -126,8 +123,6 @@ if(isset($_POST['submit'])){
             <h6 class="collapse-header">Manage Tenants:</h6>
             <a class="collapse-item" href="#">View</a>
             <a class="collapse-item" href="#">Add</a>
-            <a class="collapse-item" href="#">Update</a>
-            <a class="collapse-item" href="#">Remove</a>
           </div>
         </div>
        </li>
@@ -146,8 +141,6 @@ if(isset($_POST['submit'])){
             <h6 class="collapse-header">Manage Property:</h6>
             <a class="collapse-item" href="#">View</a>
             <a class="collapse-item" href="#">Add</a>
-            <a class="collapse-item" href="#">Update</a>
-            <a class="collapse-item" href="#">Remove</a>
           </div>
         </div>
       </li>
