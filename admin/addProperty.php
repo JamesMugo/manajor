@@ -398,7 +398,7 @@ if(isset($_POST['submit'])){
                             <input type="text" class="form-control form-control-user" name="plotno" placeholder="Plot Number" required="required">
                           </div>
                           <div class="col-sm-6">
-                            <input type="text" class="form-control form-control-user" name="onwerid" placeholder="Onwer's Id" required="required">
+                            <input type="text" class="form-control form-control-user" name="ownerid" placeholder="Onwer's Id" required="required">
                           </div>
                         </div>
                         <hr>

@@ -453,11 +453,11 @@
                 <script src="js/demo/chart-area-demo.js"></script>
                 <script src="js/demo/chart-pie-demo.js"></script>
                 <script>
-                  function edit(pid, plotno, ownerid, capacity, location){
+                  function edit(propid, plotno, ownersid, capacity, location){
                     document.getElementById('editPropForm').style.display = "block";
                     document.getElementById('plotno').value = plotno;
-                    document.getElementById('propid').value = pid;
-                    document.getElementById('ownerid').value = ownerid;
+                    document.getElementById('propid').value = propid;
+                    document.getElementById('ownersid').value = ownersid;
                     document.getElementById('capacity').value = capacity;
                     document.getElementById('location').value = location;
                   }
@@ -467,7 +467,7 @@
                     $.post("updateProperty.php",
                     {
                       plotno: $('#plotno').val(),
-                      ownerid: $('#ownerid').val(),
+                      ownersid: $('#ownersid').val(),
                       capacity: $('#capacity').val(),
                       location: $('#location').val(),
                       propid: $('#propid').val(),
