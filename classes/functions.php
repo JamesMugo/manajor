@@ -116,7 +116,7 @@ function displayProperty(){
 	                <td>". $row['ownerid']."</td>
 	                <td>".$row['capacity']."</td>
 	                <td>".$row['location']."</td>
-	                <td><button onclick=\"edit(".$row['propertyno'].", '".$row['plotno']."', '".$row['ownerid']."', '".$row['capacity']."', '".$row['location']."')\">Edit</button> <button onclick=\"window.location.href='removeproperty.php?id=".$row['propertyno']."';\">Delete</button></td>
+	                <td><button onclick=\"edit(".$row['propertyno'].", '".$row['plotno']."', '".$row['ownerid']."', '".$row['capacity']."', '".$row['location']."')\">Edit</button> <button onclick=\"window.location.href='removeproperty.php?propertyno=".$row['propertyno']."';\">Delete</button></td>
 	            </tr>";
 	        }
 	    

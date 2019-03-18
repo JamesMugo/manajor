@@ -86,7 +86,7 @@ if(isset($_POST['submit'])){
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Manage Owners:</h6>
             <a class="collapse-item" href="owners.php">View</a>
-            <a class="collapse-item" href="#addOwners">Add</a>
+            <a class="collapse-item" href="addowners.php">Add</a>
           </div>
         </div>
        </li>
