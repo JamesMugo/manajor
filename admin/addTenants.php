@@ -1,5 +1,39 @@
-<?php require('../classes/database.php');?>
-<?php require('../classes/editFunctions.php');?>
+<?php require('../classes/database.php');
+require('../classes/functions.php');
+
+
+//if form has been submitted process it
+if(isset($_POST['submit'])){
+
+  $firstname = $_POST['firstname'];
+  $lastname = $_POST['lastname'];
+  $id = $_POST['idno'];
+  $contacts = $_POST['contacts'];
+  $plotno = $_POST['plotno'];
+  $houseno = $_POST['houseno'];
+
+  // $folder_path = 'ownerForms/';
+
+  // $agreementFile = basename($_FILES['agreementForm']['name']);
+  // $newname = $folder_path . $agreement;
+
+  // //$FileType = pathinfo($newname,PATHINFO_EXTENSION);
+
+  // if(move_uploaded_file($_FILES['agreementForm']['tmp_name'], $newname)){
+
+      $query="INSERT INTO tenants(firstname, lastname, idno, contacts, plotno, houseno) VALUES ('$firstname','$lastname','$id','$contacts','$plotno','$houseno')";
+
+      if (mysqli_query($conn, $query)) {
+         echo "Property owner added successfully";
+      } else {
+         echo "Error: " . $query . "" . mysqli_error($conn);  
+      }
+      $conn->close();
+    //}
+
+}
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -64,10 +98,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Manage Owners:</h6>
             <a class="collapse-item" href="owners.php">View</a>
-            <a class="collapse-item" href="addowners.php">Add</a>
-            <a class="collapse-item" href="updateowners.php">Update</a>
-            <a class="collapse-item" href="removeOwner.php">Remove</a>
-            <a class="collapse-item" href="editOwners.php">Edit</a>
+            <a class="collapse-item" href="addOwners.php">Add</a>
           </div>
         </div>
        </li>
@@ -89,10 +120,8 @@
         <div id="collapseTenants" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Manage Tenants:</h6>
-            <a class="collapse-item" href="#">View</a>
-            <a class="collapse-item" href="#">Add</a>
-            <a class="collapse-item" href="#">Update</a>
-            <a class="collapse-item" href="#">Remove</a>
+            <a class="collapse-item" href="tenants.php">View</a>
+            <a class="collapse-item" href="#addTenants">Add</a>
           </div>
         </div>
        </li>
@@ -111,8 +140,6 @@
             <h6 class="collapse-header">Manage Property:</h6>
             <a class="collapse-item" href="#">View</a>
             <a class="collapse-item" href="#">Add</a>
-            <a class="collapse-item" href="#">Update</a>
-            <a class="collapse-item" href="#">Remove</a>
           </div>
         </div>
       </li>
@@ -355,18 +382,70 @@
 
 
         </div>
-      <!-- End of Main Content -->
+      <End of Main Content -->
 
-      <div class="card shadow mb-4" id="rightpanel">
+      <div class="card shadow mb-4" id="addTenants">
         <div class="card-header py-3">
-          <h6 class="m-0 font-weight-bold text-primary">Property Owners</h6>
+          <h6 class="m-0 font-weight-bold text-primary">Tenants</h6>
         </div>
+
+
 
         <div class="table-responsive">
-          <?php echo editContent(); ?>
-         
+          <div class="container">
+
+            <div class="card o-hidden border-0 shadow-lg my-5">
+              <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                  <!--div class="fas fa-user-plus" style="font-size: 2300%"></div-->
+                  <div class="col-lg-7">
+                    <div class="p-5">
+                      <div class="text-center">
+                        <h1 class="h4 text-gray-900 mb-4">Add a Tenant!</h1>
+                      </div>
+                      <form class="user" action="" method="POST">
+                        <div class="form-group row">
+                          <div class="col-sm-6 mb-3 mb-sm-0">
+                            <input type="text" class="form-control form-control-user" name="firstname" placeholder="First Name" required="required">
+                          </div>
+                          <div class="col-sm-6">
+                            <input type="text" class="form-control form-control-user" name="lastname" placeholder="Last Name" required="required">
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="form-group row">
+                          <div class="col-sm-6 mb-3 mb-sm-0">
+                            <input type="text" class="form-control form-control-user" name="idno" placeholder="National Id." required="required">
+                          </div>
+                          <div class="col-sm-6">
+                            <input type="text" class="form-control form-control-user" name="contacts" placeholder="Phone Number" required="required">
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="form-group row">
+                          <div class="col-sm-6 mb-3 mb-sm-0">
+                            <input type="text" class="form-control form-control-user" name="plotno" placeholder="Plot Number" required="required">
+                          </div>
+                          <div class="col-sm-6">
+                            <input type="text" class="form-control form-control-user" name="houseno" placeholder="House Number" required="required">
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="col-xs-6 col-md-6">
+                          <input type="submit" name="submit" value="Add Tenant" class="btn btn-primary btn-user btn-block" style="width: 210%">
+                        </div>
+                        <!--a href="login.php" class="btn btn-primary btn-user btn-block">
+                          Register Account
+                        </a-->
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
 
 
     </div>

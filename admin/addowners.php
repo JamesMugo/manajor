@@ -13,15 +13,6 @@ if(isset($_POST['submit'])){
   $rent = $_POST['rent'];
   $agreement = $_POST['agreement'];
 
-  // $folder_path = 'ownerForms/';
-
-  // $agreementFile = basename($_FILES['agreementForm']['name']);
-  // $newname = $folder_path . $agreement;
-
-  // //$FileType = pathinfo($newname,PATHINFO_EXTENSION);
-
-  // if(move_uploaded_file($_FILES['agreementForm']['tmp_name'], $newname)){
-
       $query="INSERT INTO owners(firstname, lastname, idNumber, propertyOwned, location, rent, agreementForm) VALUES ('$firstname','$lastname','$id','$propertyOwned','$location','$rent','$agreement')";
 
       if (mysqli_query($conn, $query)) {
@@ -30,7 +21,6 @@ if(isset($_POST['submit'])){
          echo "Error: " . $query . "" . mysqli_error($conn);  
       }
       $conn->close();
-    //}
 
 }
 ?>
@@ -121,8 +111,8 @@ if(isset($_POST['submit'])){
         <div id="collapseTenants" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Manage Tenants:</h6>
-            <a class="collapse-item" href="#">View</a>
-            <a class="collapse-item" href="#">Add</a>
+            <a class="collapse-item" href="tenants.php">View</a>
+            <a class="collapse-item" href="addTenants.php">Add</a>
           </div>
         </div>
        </li>

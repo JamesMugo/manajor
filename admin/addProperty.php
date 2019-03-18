@@ -1,5 +1,27 @@
-<?php require('../classes/database.php');?>
-<?php require('../classes/functions.php');?>
+<?php require('../classes/database.php');
+require('../classes/functions.php');
+
+
+//if form has been submitted process it
+if(isset($_POST['submit'])){
+
+  $plotno = $_POST['plotno'];
+  $ownerid = $_POST['ownerid'];
+  $capacity = $_POST['capacity'];
+  $location = $_POST['location'];
+
+      $query="INSERT INTO property(plotno, ownerid, capacity, location) VALUES ('$plotno','$ownerid','$capacity','$location')";
+
+      if (mysqli_query($conn, $query)) {
+         echo "Property added successfully";
+      } else {
+         echo "Error: " . $query . "" . mysqli_error($conn);  
+      }
+      $conn->close();
+
+}
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +34,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Manajor - Dashboard</title>
+  <title>Owners - Dashboard</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -64,7 +86,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Manage Owners:</h6>
             <a class="collapse-item" href="owners.php">View</a>
-            <a class="collapse-item" href="addowners.php">Add</a>
+            <a class="collapse-item" href="#addOwners">Add</a>
           </div>
         </div>
        </li>
@@ -105,7 +127,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Manage Property:</h6>
             <a class="collapse-item" href="property.php">View</a>
-            <a class="collapse-item" href="addProperty.php">Add</a>
+            <a class="collapse-item" href="#addProperty">Add</a>
           </div>
         </div>
       </li>
@@ -348,28 +370,61 @@
 
 
         </div>
-      <!-- End of Main Content -->
+      <End of Main Content -->
 
-
-
-
-      <!--div class="card shadow mb-4" id="rightpanel">
+      <div class="card shadow mb-4" id="addProperty">
         <div class="card-header py-3">
-          <h6 class="m-0 font-weight-bold text-primary">Property Owners</h6>
+          <h6 class="m-0 font-weight-bold text-primary">Property</h6>
         </div>
+
+
 
         <div class="table-responsive">
-          <?php echo displayContent(); ?>
-         
+          <div class="container">
+
+            <div class="card o-hidden border-0 shadow-lg my-5">
+              <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                  <!--div class="fas fa-user-plus" style="font-size: 2300%"></div-->
+                  <div class="col-lg-7">
+                    <div class="p-5">
+                      <div class="text-center">
+                        <h1 class="h4 text-gray-900 mb-4">Add a property!</h1>
+                      </div>
+                      <form class="user" action="" method="POST">
+                        <div class="form-group row">
+                          <div class="col-sm-6 mb-3 mb-sm-0">
+                            <input type="text" class="form-control form-control-user" name="plotno" placeholder="Plot Number" required="required">
+                          </div>
+                          <div class="col-sm-6">
+                            <input type="text" class="form-control form-control-user" name="onwerid" placeholder="Onwer's Id" required="required">
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="form-group row">
+                          <div class="col-sm-6 mb-3 mb-sm-0">
+                            <input type="text" class="form-control form-control-user" name="capacity" placeholder="Capacity" required="required">
+                          </div>
+                          <div class="col-sm-6">
+                            <input type="text" class="form-control form-control-user" name="location" placeholder="Location" required="required">
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="col-xs-6 col-md-6">
+                          <input type="submit" name="submit" value="Add Property" class="btn btn-primary btn-user btn-block" style="width: 210%">
+                        </div>
+                        <!--a href="login.php" class="btn btn-primary btn-user btn-block">
+                          Register Account
+                        </a-->
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-
-
-
-
-      </div-->
-
-
-
 
 
     </div>
