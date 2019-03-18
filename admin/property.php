@@ -470,6 +470,7 @@
                       ownerid: $('#ownerid').val(),
                       capacity: $('#capacity').val(),
                       location: $('#location').val(),
+                      propid: $('#propid').val(),
                       submit: "yes"
                     },
                     function(data, status){

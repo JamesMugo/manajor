@@ -478,7 +478,8 @@
               identity: $('#identity').val(),
               contacts: $('#contacts').val(),
               plotno: $('#plotno').val(),
-              houseno: $('#houseno').val(),
+              hseno: $('#hseno').val(),
+              tenid: $('#tenid').val(),
               submit: "yes"
             },
             function(data, status){
