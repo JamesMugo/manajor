@@ -1,5 +1,8 @@
 <?php require('../classes/database.php');?>
 <?php require('../classes/functions.php');?>
+<?php
+sessionCheck();
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -303,6 +306,24 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div>
+                      <!-- notification message -->
+                      <?php if (isset($_SESSION['success'])) : ?>
+                        <div class="error success" >
+                          <h3>
+                            <?php 
+                              echo $_SESSION['success']; 
+                              unset($_SESSION['success']);
+                            ?>
+                          </h3>
+                        </div>
+                      <?php endif ?>
+                      <!-- logged in user information -->
+                </div>
+
+
+
+
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
                 <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
               </a>
@@ -409,7 +430,7 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.php">Logout</a>
+          <a class="btn btn-primary" href="logout.php">Logout</a>
         </div>
       </div>
     </div>

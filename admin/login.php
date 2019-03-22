@@ -1,5 +1,6 @@
 <?php
 require('../classes/database.php');
+require('../classes/functions.php');
 
 if(isset($_POST['submit'])){
 
@@ -9,23 +10,62 @@ if(isset($_POST['submit'])){
 
   $pass = md5($inputPassword);
 
-  $query="SELECT username, password FROM staff WHERE username = '$username' and password = '$pass'";
+  /*$query = mysqli_query($conn, "SELECT username, password, usertype from staff");
+  while ($row=mysqli_fetch_array($query)) {
+    $db_username = $row['username'];
+    $db_pass = $row['password'];
+    $usertype = $row['usertype'];
+
+    if ($username==$db_username && $pass==$db_pass) {
+      session_start();
+      $_SESSION["username"]=$db_username;
+      $_SESSION["usertype"]=$usertype;
+
+      if ($_SESSION[$usertype]=='regular') {
+        header("location: admindashboard.php");
+      }else
+        header("location: dashboard.php");
+        echo "Successful login";
+        echo $usertype;
+    }
+    else
+      echo "fail";
+  }*/
+
+  $query="SELECT username, usertype, email, staffID FROM staff WHERE username = '$username' and password = '$pass' LIMIT 1";
 
   $result = mysqli_query($conn,$query);
   $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
 
   $count = mysqli_num_rows($result);
+  if($count == 1){
+
+      //session_start();
+      $_SESSION["username"]=$row["username"];
+      $_SESSION["usertype"]=$row["usertype"];
+      $_SESSION["staffID"]=$row["staffID"];
+
+      if ($row["usertype"]=="regular") {
+        echo "<center><h3 style='color:green'>Login Successful.</h3><p>You will be redirected to the dashboard in 4 seconds</p></center>";
+        header("refresh:2;url=dashboard.php");
+        //header("location: dashboard.php");
+      }else {
+        echo "<center><h3 style='color:green'>Login Successful</h3><p>You will be redirected to the dashboard in 4 seconds</p></center>";
+        header("refresh:2;url=admindashboard.php");
+    }
+  }
+  //var_dump($row);
 
   // If result matched $myusername and $mypassword, table row must be 1 row
     
-  if($count == 1) {      
-    header("location: dashboard.php");
-   }else {
-         $errorMsg = "Wrong username/password combination";
-         // echo $error;
-  }
+  // if($count == 1) {
+  //   header("location: dashboard.php");
+  //  }else {
+  //        $errorMsg = "Wrong username/password combination";
+  //        // echo $error;
+  // }
 
-  $conn->close();
+  mysqli_close($conn);
 }
 ?>
 

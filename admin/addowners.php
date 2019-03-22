@@ -11,9 +11,27 @@ if(isset($_POST['submit'])){
   $propertyOwned = $_POST['propertyOwned'];
   $location = $_POST['location'];
   $rent = $_POST['rent'];
-  $agreement = $_POST['agreement'];
+  //$agreement = $_POST['agreement'];
 
-      $query="INSERT INTO owners(firstname, lastname, idNumber, propertyOwned, location, rent, agreementForm) VALUES ('$firstname','$lastname','$id','$propertyOwned','$location','$rent','$agreement')";
+                  //validate image
+      //validate image
+    if (isset($_FILES['agreement']) && !empty($_FILES["agreement"]['tmp_name'])) {
+
+      $prod_image = saveToSever("agreement");
+      if($prod_image != false){
+        $prod_img = $prod_image;
+          $ok = true; 
+      } else{
+        echo "couldnt upload to server";
+      }
+      //$prod_img = $_POST['prod_img'];
+      
+    }
+
+  if(isset($_SESSION["staffID"])){
+    $logged_in_user_id = $_SESSION["staffID"];
+
+    $query="INSERT INTO owners(firstname, staffID, lastname, idNumber, propertyOwned, location, rent, agreementForm) VALUES ('$firstname', '$logged_in_user_id', '$lastname','$id','$propertyOwned','$location','$rent','$prod_img')";
 
       if (mysqli_query($conn, $query)) {
          echo "Property owner added successfully";
@@ -21,6 +39,13 @@ if(isset($_POST['submit'])){
          echo "Error: " . $query . "" . mysqli_error($conn);  
       }
       $conn->close();
+  }else{
+    if(headers_sent()){
+        die("Hmmmmmm. It seems your session has timed out....<a href='login.php'> Click here to Login Again</a>");
+      } else{
+        exit(header("location: login.php"));
+      }
+  }
 
 }
 ?>
@@ -395,7 +420,7 @@ if(isset($_POST['submit'])){
                       <div class="text-center">
                         <h1 class="h4 text-gray-900 mb-4">Add a property owner!</h1>
                       </div>
-                      <form class="user" action="" method="POST">
+                      <form class="user" action="" method="POST" enctype="multipart/form-data">
                         <div class="form-group row">
                           <div class="col-sm-6 mb-3 mb-sm-0">
                             <input type="text" class="form-control form-control-user" name="firstname" placeholder="First Name" required="required">

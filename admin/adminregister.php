@@ -1,8 +1,5 @@
 <?php require('../classes/database.php');
 
-//if logged in redirect to staff page
-// if( $user->is_logged_in() ){ header('Location: dashboard.php'); exit(); }
-
 //if form has been submitted process it
 if(isset($_POST['submit']) && $_POST['InputPassword'] == $_POST['RepeatPassword']){
 
@@ -15,7 +12,7 @@ if(isset($_POST['submit']) && $_POST['InputPassword'] == $_POST['RepeatPassword'
 
   $pass = md5($InputPassword);
 
-  $query="INSERT INTO staff(firstname, lastname, username, password, email, usertype) VALUES ('$FirstName','$LastName','$Username','$pass','$InputEmail','regular')";
+  $query="INSERT INTO staff(firstname, lastname, username, password, email, usertype) VALUES ('$FirstName','$LastName','$Username','$pass','$InputEmail','admin')";
 
   if (mysqli_query($conn, $query)) {
     header('Location: login.php');

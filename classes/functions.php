@@ -1,43 +1,79 @@
 <?php 
+session_start();
 require('database.php');
+
+function sessionCheck(){
+	if (!isset($_SESSION["staffID"])) {
+		header("location: login.php");
+	}
+}
+
+function saveToSever($tag_name){
+	    $image = addslashes($_FILES[$tag_name]['tmp_name']);
+        $name  = addslashes($_FILES[$tag_name]['name']);
+        $image = file_get_contents($image);
+        $uploaddir = '../img/';
+        $uploadfile = $uploaddir . basename($_FILES[$tag_name]['name']);
+
+        if (move_uploaded_file($_FILES[$tag_name]['tmp_name'], $uploadfile)) {
+            	return $uploadfile;
+            }
+            else { return false;}
+} 
+
+
 function displayContent(){
 	global $conn;
-	$query = "SELECT * FROM owners LIMIT 10";
-	$result = mysqli_query($conn,$query);
 
-	echo "<div class='table-responsive'>
-	  <table class='table table-bordered' id='dataTable' width='100%' cellspacing='0'>
-	    <thead>
-	        <tr>
-	            <td>Customer Id</td>
-	            <td>First Name</td>
-	            <td>Last Name</td>
-	            <td>Property</td>
-	            <td>Rent per unit</td>
-	            <td>Actions</td>
-	        </tr>
-	    </thead>
-	    <tbody> ";
-	
-	       
-	        // $row = mysqli_fetch_array($ ,MYSQLI_ASSOC);
+	if(isset($_SESSION["staffID"])){
+		$logged_in_user_id = $_SESSION["staffID"];
+		$query = "SELECT * FROM owners WHERE approval_status='Yes' AND staffID = '$logged_in_user_id' LIMIT 10";
+		$result = mysqli_query($conn,$query);
 
-	        while($row = mysqli_fetch_array($result)) {
-	       
-	            echo "<tr>
-	                <td>". $row['ownerID'] ."</td>
-	                <td>".$row['firstname']."</td>
-	                <td>". $row['lastname']."</td>
-	                <td>".$row['propertyOwned']."</td>
-	                <td>".$row['rent']."</td>
-	                <td><button onclick=\"edit(".$row['ownerID'].", '".$row['firstname']."', '".$row['lastname']."', '".$row['propertyOwned']."', '".$row['rent']."')\">Edit</button> <button onclick=\"window.location.href='removeowner.php?ownerID=".$row['ownerID']."';\">Delete</button></td>
-	            </tr>";
-	        }
-	    
+		echo "<div class='table-responsive'>
+		  <table class='table table-bordered' id='dataTable' width='100%' cellspacing='0'>
+		    <thead>
+		        <tr>
+		            <td>Customer Id</td>
+		            <td>First Name</td>
+		            <td>Last Name</td>
+		            <td>Property</td>
+		            <td>Rent per unit</td>
+		            <td>Actions</td>
+		        </tr>
+		    </thead>
+		    <tbody> ";
+		
+		       
+		       //echo "<h3> Heeeeyyyyy".$logged_in_user_id."</h3>";
+		        // $row = mysqli_fetch_array($ ,MYSQLI_ASSOC);
+		    if($result){
 
-	    echo "</tbody>
-	  </table>
-	</div>";
+		        while($row = mysqli_fetch_array($result)) {
+		       
+		            echo "<tr>
+		                <td>". $row['ownerID'] ."</td>
+		                <td>".$row['firstname']."</td>
+		                <td>". $row['lastname']."</td>
+		                <td>".$row['propertyOwned']."</td>
+		                <td>".$row['rent']."</td>
+		                <td><button onclick=\"edit(".$row['ownerID'].", '".$row['firstname']."', '".$row['lastname']."', '".$row['propertyOwned']."', '".$row['rent']."')\">Edit</button> <button onclick=\"window.location.href='removeowner.php?ownerID=".$row['ownerID']."';\">Delete</button></td>
+		            </tr>";
+		        }
+		    }
+		    
+
+		    echo "</tbody>
+		  </table>
+		</div>";
+} else{
+	if(headers_sent()){
+		die("Hmmmmmm. It seems your session has timed out....<a href='login.php'> Click here to Login Again</a>");
+	} else{
+		exit(header("location: login.php"));
+	}
+
+		}
 
 }
 
@@ -127,4 +163,54 @@ function displayProperty(){
 
 }
 
+// return user array from their id
+function getUserById($id){
+	global $conn;
+	$query = "SELECT * FROM staff WHERE id=" . $staffID;
+	$result = mysqli_query($conn, $query);
+
+	$user = mysqli_fetch_assoc($result);
+	return $user;
+}
+
+function approveAddition(){
+	global $conn;
+	$query = "SELECT * FROM owners WHERE approval_status='No' LIMIT 10";
+	$result = mysqli_query($conn,$query);
+
+	echo "<div class='table-responsive'>
+	  <table class='table table-bordered' id='dataTable' width='100%' cellspacing='0'>
+	    <thead>
+	        <tr>
+	            <td>Customer Id</td>
+	            <td>First Name</td>
+	            <td>Last Name</td>
+	            <td>Property</td>
+	            <td>Rent per unit</td>
+	            <td>Actions</td>
+	        </tr>
+	    </thead>
+	    <tbody> ";
+	
+	       
+	        // $row = mysqli_fetch_array($ ,MYSQLI_ASSOC);
+
+	        while($row = mysqli_fetch_array($result)) {
+	       
+	            echo "<tr>
+	                <td>". $row['ownerID'] ."</td>
+	                <td>".$row['firstname']."</td>
+	                <td>". $row['lastname']."</td>
+	                <td>".$row['propertyOwned']."</td>
+	                <td>".$row['rent']."</td>
+	                <td><button onclick=\"window.location.href='adminUpdate.php?status=Yes&ownerID=".$row['ownerID']."';\">APPROVE</button> <button onclick=\"window.location.href='adminUpdate.php?status=Blocked&ownerID=".$row['ownerID']."';\">DECLINE</button></td>
+	            </tr>";
+	        }
+	    
+
+	    echo "</tbody>
+	  </table>
+	</div>";
+
+}
 ?>
