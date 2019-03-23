@@ -213,4 +213,86 @@ function approveAddition(){
 	</div>";
 
 }
+
+function approveTenantsAddition(){
+		global $conn;
+		$query = "SELECT * FROM tenants WHERE approval_status='No' LIMIT 10";
+		$result = mysqli_query($conn,$query);
+
+		echo "<div class='table-responsive'>
+		  <table class='table table-bordered' id='dataTable' width='100%' cellspacing='0'>
+		    <thead>
+		        <tr>
+			        <td>Tenant Id</td>
+		            <td>First Name</td>
+		            <td>Last Name</td>
+		            <td>National Id.</td>
+		            <td>Phone Number</td>
+		            <td>Plot Number</td>
+		            <td>House Number</td>
+		            <td>Actions</td>
+		        </tr>
+		    </thead>
+		    <tbody> ";
+		
+		       
+		        // $row = mysqli_fetch_array($ ,MYSQLI_ASSOC);
+
+		        while($row = mysqli_fetch_array($result)) {
+		       
+		            echo "<tr>
+			            <td>". $row['id'] ."</td>
+		                <td>".$row['firstname']."</td>
+		                <td>". $row['lastname']."</td>
+		                <td>".$row['idno']."</td>
+		                <td>".$row['contacts']."</td>
+		                <td>".$row['plotno']."</td>
+		                <td>".$row['houseno']."</td>
+		                <td><button onclick=\"window.location.href='approveTenants.php?status=Yes&ownerID=".$row['id']."';\">APPROVE</button> <button onclick=\"window.location.href='approveTenants.php?status=Blocked&ownerID=".$row['id']."';\">DECLINE</button></td>
+		            </tr>";
+		        }
+		    
+
+		    echo "</tbody>
+		  </table>
+		</div>";
+	}
+
+function approvePropertyAddition(){
+	global $conn;
+	$query = "SELECT * FROM property WHERE approval_status='No' LIMIT 10";
+	$result = mysqli_query($conn,$query);
+
+	echo "<div class='table-responsive'>
+	    <table class='table table-bordered' id='dataTable' width='100%' cellspacing='0'>
+	    <thead>
+	        <tr>
+	        	<td>Property Id</td>
+	            <td>Plot Number</td>
+	            <td>Owner Id</td>
+	            <td>Capacity</td>
+	            <td>Location</td>
+	            <td>Actions</td>
+	        </tr>
+	    </thead>
+	    <tbody> ";
+	
+	       
+	        // $row = mysqli_fetch_array($ ,MYSQLI_ASSOC);
+	        while($row = mysqli_fetch_array($result)) {
+	       
+	            echo "<tr>
+	            	<td>". $row['propertyno'] ."</td>
+	                <td>".$row['plotno']."</td>
+	                <td>". $row['ownerid']."</td>
+	                <td>".$row['capacity']."</td>
+	                <td>".$row['location']."</td>
+	                <td><button onclick=\"window.location.href='approveProperty.php?status=Yes&ownerID=".$row['propertyno']."';\">APPROVE</button> <button onclick=\"window.location.href='approveProperty.php?status=Blocked&ownerID=".$row['propertyno']."';\">DECLINE</button></td>
+	            </tr>";
+	        }
+	    
+	    echo "</tbody>
+	  </table>
+	</div>";
+}
 ?>
