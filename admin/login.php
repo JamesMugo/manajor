@@ -46,11 +46,11 @@ if(isset($_POST['submit'])){
       $_SESSION["staffID"]=$row["staffID"];
 
       if ($row["usertype"]=="regular") {
-        echo "<center><h3 style='color:green'>Login Successful.</h3><p>You will be redirected to the dashboard in 4 seconds</p></center>";
+        echo "<center><h3 style='color:white'>Login Successful.</h3><p style='color:black'>You will be redirected to the dashboard in 4 seconds</p></center>";
         header("refresh:2;url=dashboard.php");
         //header("location: dashboard.php");
       }else {
-        echo "<center><h3 style='color:green'>Login Successful</h3><p>You will be redirected to the dashboard in 4 seconds</p></center>";
+        echo "<center><h3 style='color:white'>Login Successful</h3><p>You will be redirected to the dashboard in 4 seconds</p></center>";
         header("refresh:2;url=admindashboard.php");
     }
   }

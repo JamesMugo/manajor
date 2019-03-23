@@ -10,14 +10,26 @@ if(isset($_POST['submit'])){
   $capacity = $_POST['capacity'];
   $location = $_POST['location'];
 
-      $query="INSERT INTO property(plotno, ownerid, capacity, location) VALUES ('$plotno','$ownerid','$capacity','$location')";
 
-      if (mysqli_query($conn, $query)) {
-         echo "Property added successfully";
-      } else {
-         echo "Error: " . $query . "" . mysqli_error($conn);  
+
+  if(isset($_SESSION["staffID"])){
+  $logged_in_user_id = $_SESSION["staffID"];
+
+  $query="INSERT INTO property(staffID, plotno, ownerid, capacity, location) VALUES ('$logged_in_user_id','$plotno','$ownerid','$capacity','$location')";
+
+    if (mysqli_query($conn, $query)) {
+       echo "Property added successfully";
+    } else {
+       echo "Error: " . $query . "" . mysqli_error($conn);  
+    }
+    $conn->close();
+  }else{
+    if(headers_sent()){
+        die("Hmmmmmm. It seems your session has timed out....<a href='login.php'> Click here to Login Again</a>");
+      } else{
+        exit(header("location: login.php"));
       }
-      $conn->close();
+  }
 
 }
 ?>

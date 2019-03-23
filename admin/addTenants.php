@@ -12,24 +12,35 @@ if(isset($_POST['submit'])){
   $plotno = $_POST['plotno'];
   $houseno = $_POST['houseno'];
 
-  // $folder_path = 'ownerForms/';
 
-  // $agreementFile = basename($_FILES['agreementForm']['name']);
-  // $newname = $folder_path . $agreement;
+  if(isset($_SESSION["staffID"])){
+  $logged_in_user_id = $_SESSION["staffID"];
 
-  // //$FileType = pathinfo($newname,PATHINFO_EXTENSION);
+  $query="INSERT INTO tenants(staffID, firstname, lastname, idno, contacts, plotno, houseno) VALUES ('$logged_in_user_id','$firstname','$lastname','$id','$contacts','$plotno','$houseno')";
 
-  // if(move_uploaded_file($_FILES['agreementForm']['tmp_name'], $newname)){
+    if (mysqli_query($conn, $query)) {
+       echo "Tenant added successfully";
+    } else {
+       echo "Error: " . $query . "" . mysqli_error($conn);  
+    }
+    $conn->close();
+  }else{
+    if(headers_sent()){
+        die("Hmmmmmm. It seems your session has timed out....<a href='login.php'> Click here to Login Again</a>");
+      } else{
+        exit(header("location: login.php"));
+      }
+  }
 
-      $query="INSERT INTO tenants(firstname, lastname, idno, contacts, plotno, houseno) VALUES ('$firstname','$lastname','$id','$contacts','$plotno','$houseno')";
+
+    /*  $query="INSERT INTO tenants(firstname, lastname, idno, contacts, plotno, houseno) VALUES ('$firstname','$lastname','$id','$contacts','$plotno','$houseno')";
 
       if (mysqli_query($conn, $query)) {
          echo "Property owner added successfully";
       } else {
          echo "Error: " . $query . "" . mysqli_error($conn);  
       }
-      $conn->close();
-    //}
+      $conn->close();*/
 
 }
 ?>

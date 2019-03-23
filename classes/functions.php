@@ -67,19 +67,22 @@ function displayContent(){
 		  </table>
 		</div>";
 } else{
-	if(headers_sent()){
-		die("Hmmmmmm. It seems your session has timed out....<a href='login.php'> Click here to Login Again</a>");
-	} else{
-		exit(header("location: login.php"));
-	}
-
+		if(headers_sent()){
+			die("Hmmmmmm. It seems your session has timed out....<a href='login.php'> Click here to Login Again</a>");
+		} else{
+			exit(header("location: login.php"));
 		}
+
+	}
 
 }
 
 function displayTenants(){
 	global $conn;
-	$query = "SELECT * FROM tenants LIMIT 10";
+
+	if(isset($_SESSION["staffID"])){
+	$logged_in_user_id = $_SESSION["staffID"];
+	$query = "SELECT * FROM tenants WHERE approval_status='Yes' AND staffID = '$logged_in_user_id' LIMIT 10";
 	$result = mysqli_query($conn,$query);
 
 	echo "<div class='table-responsive'>
@@ -119,12 +122,23 @@ function displayTenants(){
 	    echo "</tbody>
 	  </table>
 	</div>";
+} else{
+		if(headers_sent()){
+			die("Hmmmmmm. It seems your session has timed out....<a href='login.php'> Click here to Login Again</a>");
+		} else{
+			exit(header("location: login.php"));
+		}
+
+	}
 
 }
 
 function displayProperty(){
 	global $conn;
-	$query = "SELECT * FROM property LIMIT 10";
+
+	if(isset($_SESSION["staffID"])){
+	$logged_in_user_id = $_SESSION["staffID"];
+	$query = "SELECT * FROM property WHERE approval_status='Yes' AND staffID = '$logged_in_user_id' LIMIT 10";
 	$result = mysqli_query($conn,$query);
 
 	echo "<div class='table-responsive'>
@@ -160,6 +174,14 @@ function displayProperty(){
 	    echo "</tbody>
 	  </table>
 	</div>";
+} else{
+		if(headers_sent()){
+			die("Hmmmmmm. It seems your session has timed out....<a href='login.php'> Click here to Login Again</a>");
+		} else{
+			exit(header("location: login.php"));
+		}
+
+	}
 
 }
 
@@ -248,7 +270,7 @@ function approveTenantsAddition(){
 		                <td>".$row['contacts']."</td>
 		                <td>".$row['plotno']."</td>
 		                <td>".$row['houseno']."</td>
-		                <td><button onclick=\"window.location.href='approveTenants.php?status=Yes&ownerID=".$row['id']."';\">APPROVE</button> <button onclick=\"window.location.href='approveTenants.php?status=Blocked&ownerID=".$row['id']."';\">DECLINE</button></td>
+		                <td><button onclick=\"window.location.href='approveTenants.php?status=Yes&id=".$row['id']."';\">APPROVE</button> <button onclick=\"window.location.href='approveTenants.php?status=Blocked&id=".$row['id']."';\">DECLINE</button></td>
 		            </tr>";
 		        }
 		    
@@ -287,7 +309,7 @@ function approvePropertyAddition(){
 	                <td>". $row['ownerid']."</td>
 	                <td>".$row['capacity']."</td>
 	                <td>".$row['location']."</td>
-	                <td><button onclick=\"window.location.href='approveProperty.php?status=Yes&ownerID=".$row['propertyno']."';\">APPROVE</button> <button onclick=\"window.location.href='approveProperty.php?status=Blocked&ownerID=".$row['propertyno']."';\">DECLINE</button></td>
+	                <td><button onclick=\"window.location.href='approveProperty.php?status=Yes&propertyno=".$row['propertyno']."';\">APPROVE</button> <button onclick=\"window.location.href='approveProperty.php?status=Blocked&propertyno=".$row['propertyno']."';\">DECLINE</button></td>
 	            </tr>";
 	        }
 	    
