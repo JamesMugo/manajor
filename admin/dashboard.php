@@ -306,30 +306,12 @@ sessionCheck();
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <div>
-                      <!-- notification message -->
-                      <?php if (isset($_SESSION['success'])) : ?>
-                        <div class="error success" >
-                          <h3>
-                            <?php 
-                              echo $_SESSION['success']; 
-                              unset($_SESSION['success']);
-                            ?>
-                          </h3>
-                        </div>
-                      <?php endif ?>
-                      <!-- logged in user information -->
-                </div>
-
-
-
-
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php displayUser(); ?></span>
                 <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#profileModal">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
                 </a>
@@ -435,6 +417,64 @@ sessionCheck();
       </div>
     </div>
   </div>
+
+  <!--profile -->
+    <!-- Logout Modal-->
+  <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"><?php displayUser();?>'s profile</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+
+
+
+
+        <div>
+          <form class="user" id="editform">
+            <div class="form-group row">
+              <div class="col-sm-6 mb-3 mb-sm-0">
+                <input type="text" class="form-control form-control-user" name="firstname" placeholder="First Name" required="required" id="fname">
+              </div>
+              <div class="col-sm-6">
+                <input type="text" class="form-control form-control-user" name="lastname" placeholder="Last Name" required="required" id="lname">
+              </div>
+            </div>
+            <hr>
+            <div class="form-group row">
+              <div class="col-sm-6">
+                <input type="text" class="form-control form-control-user" name="username" placeholder="User Name" required="required" id="username">
+              </div>
+              <div class="col-sm-6">
+                <input type="email" class="form-control form-control-user" name="email" placeholder="Email" required="required" id="email">
+              </div>
+            </div>
+            <hr>
+
+            <input type="hidden" name="staffid" id="staffid">
+
+            <div class="col-xs-6 col-md-6">
+              <input type="button" name="submit" id="updateform" value="Update Account" class="btn btn-primary btn-user btn-block" style="width: 210%">
+            </div>
+                        <!--a href="login.php" class="btn btn-primary btn-user btn-block">
+                          Register Account
+                        </a-->
+        </form>
+        </div>
+
+
+
+        
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">BACK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--end of profile-->
 
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>

@@ -471,7 +471,7 @@
 
           $("#updateTenform").click(function(){
 
-            $.post("updateTenant.php",
+            $.post("php/updateTenant.php",
             {
               firstname: $('#fname').val(),
               lastname: $('#lname').val(),

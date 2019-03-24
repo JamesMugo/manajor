@@ -464,7 +464,7 @@
 
                   $("#updateform").click(function(){
 
-                    $.post("update.php",
+                    $.post("php/update.php",
                     {
                       firstname: $('#fname').val(),
                       lastname: $('#lname').val(),

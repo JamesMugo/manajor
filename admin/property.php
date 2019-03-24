@@ -464,7 +464,7 @@
 
                   $("#updatePropForm").click(function(){
 
-                    $.post("updateProperty.php",
+                    $.post("php/updateProperty.php",
                     {
                       plotno: $('#plotno').val(),
                       ownersid: $('#ownersid').val(),

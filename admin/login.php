@@ -32,7 +32,7 @@ if(isset($_POST['submit'])){
       echo "fail";
   }*/
 
-  $query="SELECT username, usertype, email, staffID FROM staff WHERE username = '$username' and password = '$pass' LIMIT 1";
+  $query="SELECT username, firstname, usertype, email, staffID FROM staff WHERE username = '$username' and password = '$pass' LIMIT 1";
 
   $result = mysqli_query($conn,$query);
   $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
@@ -44,6 +44,7 @@ if(isset($_POST['submit'])){
       $_SESSION["username"]=$row["username"];
       $_SESSION["usertype"]=$row["usertype"];
       $_SESSION["staffID"]=$row["staffID"];
+      $_SESSION["firstname"]=$row["firstname"];
 
       if ($row["usertype"]=="regular") {
         echo "<center><h3 style='color:white'>Login Successful.</h3><p style='color:black'>You will be redirected to the dashboard in 4 seconds</p></center>";

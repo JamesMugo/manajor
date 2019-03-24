@@ -61,7 +61,7 @@ sessionCheck();
       <!-- Owner's link for approval -->
     <div>
       <li class="nav-item active">
-        <a class="nav-link" href="#ownerPanel">
+        <a class="nav-link" href="javascript:void(0)" onclick="unhide()">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Property owners</span></a>
       </li>
@@ -71,25 +71,25 @@ sessionCheck();
       <hr class="sidebar-divider d-none d-md-block">
 
       <!-- Tenant's link for approval-->
-    <!--div>
+    <div>
       <li class="nav-item active">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="javascript:void(0)" onclick="unhide1()">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Tenants</span></a>
       </li>
-    </div-->
+    </div>
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
       <!-- Property's link for approval-->
-    <!--div>
+    <div>
       <li class="nav-item active">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="javascript:void(0)" onclick="unhide2()">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Property</span></a>
       </li>
-    </div-->
+    </div>
 
 
       <!-- Sidebar Toggler (Sidebar) -->
@@ -167,7 +167,7 @@ sessionCheck();
 
         </div>
 
-          <div class="card shadow mb-4" id="ownerPanel">
+          <div class="card shadow mb-4" id="ownerPanel" style="display: none;">
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary">Approve Property Owners</h6>
             </div>
@@ -178,7 +178,7 @@ sessionCheck();
             </div>
           </div>
 
-          <div class="card shadow mb-4" id="tenantPanel">
+          <div class="card shadow mb-4" id="tenantPanel" style="display: none;">
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary">Approve Tenants</h6>
             </div>
@@ -189,7 +189,7 @@ sessionCheck();
             </div>
           </div>
 
-          <div class="card shadow mb-4" id="propertyPanel">
+          <div class="card shadow mb-4" id="propertyPanel" style="display: none;">
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary">Approve Property</h6>
             </div>
@@ -252,6 +252,23 @@ sessionCheck();
 
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
+  <script type="text/javascript">
+    function unhide(){
+      document.getElementById('ownerPanel').style.display='block';
+      document.getElementById('tenantPanel').style.display='none';
+      document.getElementById('propertyPanel').style.display='none';
+    }
+    function unhide1(){
+      document.getElementById('tenantPanel').style.display='block';
+      document.getElementById('ownerPanel').style.display='none';
+      document.getElementById('propertyPanel').style.display='none';
+    }
+    function unhide2(){
+      document.getElementById('propertyPanel').style.display='block';
+      document.getElementById('tenantPanel').style.display='none';
+      document.getElementById('ownerPanel').style.display='none';
+    }
+  </script>
 
 </body>
 

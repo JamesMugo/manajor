@@ -1,5 +1,5 @@
-<?php require('../classes/database.php');
-require('../classes/functions.php');
+<?php require('../../classes/database.php');
+require('../../classes/functions.php');
 
 
 //if form has been submitted process it
@@ -11,7 +11,7 @@ if(isset($_GET['id'])){
       $query="UPDATE tenants SET approval_status='$status' WHERE id = '$idToUpdate'";
 
       if (mysqli_query($conn, $query)) {
-         header('Location: admindashboard.php');
+         header('Location: ../admindashboard.php');
       } else {
          echo "Error: " . $query . "" . mysqli_error($conn);  
       }

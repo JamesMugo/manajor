@@ -8,6 +8,12 @@ function sessionCheck(){
 	}
 }
 
+function displayUser(){
+	if (sessionCheck()==false) {
+		echo $_SESSION["firstname"];
+	}
+}
+
 function saveToSever($tag_name){
 	    $image = addslashes($_FILES[$tag_name]['tmp_name']);
         $name  = addslashes($_FILES[$tag_name]['name']);
@@ -57,7 +63,7 @@ function displayContent(){
 		                <td>". $row['lastname']."</td>
 		                <td>".$row['propertyOwned']."</td>
 		                <td>".$row['rent']."</td>
-		                <td><button onclick=\"edit(".$row['ownerID'].", '".$row['firstname']."', '".$row['lastname']."', '".$row['propertyOwned']."', '".$row['rent']."')\">Edit</button> <button onclick=\"window.location.href='removeowner.php?ownerID=".$row['ownerID']."';\">Delete</button></td>
+		                <td><button onclick=\"edit(".$row['ownerID'].", '".$row['firstname']."', '".$row['lastname']."', '".$row['propertyOwned']."', '".$row['rent']."')\">Edit</button> <button onclick=\"window.location.href='php/removeowner.php?ownerID=".$row['ownerID']."';\">Delete</button></td>
 		            </tr>";
 		        }
 		    }
@@ -114,7 +120,7 @@ function displayTenants(){
 	                <td>".$row['contacts']."</td>
 	                <td>".$row['plotno']."</td>
 	                <td>".$row['houseno']."</td>
-	                <td><button onclick=\"edit(".$row['id'].", '".$row['firstname']."', '".$row['lastname']."', '".$row['idno']."', '".$row['contacts']."','".$row['plotno']."','".$row['houseno']."')\">Edit</button> <button onclick=\"window.location.href='removetenant.php?id=".$row['id']."';\">Delete</button></td>
+	                <td><button onclick=\"edit(".$row['id'].", '".$row['firstname']."', '".$row['lastname']."', '".$row['idno']."', '".$row['contacts']."','".$row['plotno']."','".$row['houseno']."')\">Edit</button> <button onclick=\"window.location.href='php/removetenant.php?id=".$row['id']."';\">Delete</button></td>
 	            </tr>";
 	        }
 	    
@@ -166,7 +172,7 @@ function displayProperty(){
 	                <td>". $row['ownerid']."</td>
 	                <td>".$row['capacity']."</td>
 	                <td>".$row['location']."</td>
-	                <td><button onclick=\"edit(".$row['propertyno'].", '".$row['plotno']."', '".$row['ownerid']."', '".$row['capacity']."', '".$row['location']."')\">Edit</button> <button onclick=\"window.location.href='removeproperty.php?propertyno=".$row['propertyno']."';\">Delete</button></td>
+	                <td><button onclick=\"edit(".$row['propertyno'].", '".$row['plotno']."', '".$row['ownerid']."', '".$row['capacity']."', '".$row['location']."')\">Edit</button> <button onclick=\"window.location.href='php/removeproperty.php?propertyno=".$row['propertyno']."';\">Delete</button></td>
 	            </tr>";
 	        }
 	    
@@ -225,7 +231,7 @@ function approveAddition(){
 	                <td>". $row['lastname']."</td>
 	                <td>".$row['propertyOwned']."</td>
 	                <td>".$row['rent']."</td>
-	                <td><button onclick=\"window.location.href='adminUpdate.php?status=Yes&ownerID=".$row['ownerID']."';\">APPROVE</button> <button onclick=\"window.location.href='adminUpdate.php?status=Blocked&ownerID=".$row['ownerID']."';\">DECLINE</button></td>
+	                <td><button onclick=\"window.location.href='php/adminUpdate.php?status=Yes&ownerID=".$row['ownerID']."';\">APPROVE</button> <button onclick=\"window.location.href='php/adminUpdate.php?status=Blocked&ownerID=".$row['ownerID']."';\">DECLINE</button></td>
 	            </tr>";
 	        }
 	    
@@ -270,7 +276,7 @@ function approveTenantsAddition(){
 		                <td>".$row['contacts']."</td>
 		                <td>".$row['plotno']."</td>
 		                <td>".$row['houseno']."</td>
-		                <td><button onclick=\"window.location.href='approveTenants.php?status=Yes&id=".$row['id']."';\">APPROVE</button> <button onclick=\"window.location.href='approveTenants.php?status=Blocked&id=".$row['id']."';\">DECLINE</button></td>
+		                <td><button onclick=\"window.location.href='php/approveTenants.php?status=Yes&id=".$row['id']."';\">APPROVE</button> <button onclick=\"window.location.href='php/approveTenants.php?status=Blocked&id=".$row['id']."';\">DECLINE</button></td>
 		            </tr>";
 		        }
 		    
@@ -309,7 +315,7 @@ function approvePropertyAddition(){
 	                <td>". $row['ownerid']."</td>
 	                <td>".$row['capacity']."</td>
 	                <td>".$row['location']."</td>
-	                <td><button onclick=\"window.location.href='approveProperty.php?status=Yes&propertyno=".$row['propertyno']."';\">APPROVE</button> <button onclick=\"window.location.href='approveProperty.php?status=Blocked&propertyno=".$row['propertyno']."';\">DECLINE</button></td>
+	                <td><button onclick=\"window.location.href='php/approveProperty.php?status=Yes&propertyno=".$row['propertyno']."';\">APPROVE</button> <button onclick=\"window.location.href='php/approveProperty.php?status=Blocked&propertyno=".$row['propertyno']."';\">DECLINE</button></td>
 	            </tr>";
 	        }
 	    
