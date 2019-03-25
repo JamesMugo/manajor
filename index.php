@@ -48,10 +48,10 @@
             <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Contact</a>
           </li>
           <li>
-            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="admin/login.php">Login</a>
+            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="Management/login.php">Login</a>
           </li>
           <li>
-            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="admin/register.php">Sign Up</a>
+            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="Management/register.php">Sign Up</a>
           </li>
         </ul>
       </div>
