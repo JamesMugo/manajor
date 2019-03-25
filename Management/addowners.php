@@ -1,5 +1,6 @@
 <?php require('../classes/database.php');
 require('../classes/functions.php');
+sessionCheck();
 
 
 //if form has been submitted process it
@@ -7,23 +8,38 @@ if(isset($_POST['submit'])){
 
   $firstname = $_POST['firstname'];
   $lastname = $_POST['lastname'];
-  $id = $_POST['idno'];
-  $contacts = $_POST['contacts'];
-  $plotno = $_POST['plotno'];
-  $houseno = $_POST['houseno'];
+  $id = $_POST['id'];
+  $propertyOwned = $_POST['propertyOwned'];
+  $location = $_POST['location'];
+  $rent = $_POST['rent'];
+  //$agreement = $_POST['agreement'];
 
+                  //validate image
+      //validate image
+    if (isset($_FILES['agreement']) && !empty($_FILES["agreement"]['tmp_name'])) {
+
+      $prod_image = saveToSever("agreement");
+      if($prod_image != false){
+        $prod_img = $prod_image;
+          $ok = true; 
+      } else{
+        echo "couldnt upload to server";
+      }
+      //$prod_img = $_POST['prod_img'];
+      
+    }
 
   if(isset($_SESSION["staffID"])){
-  $logged_in_user_id = $_SESSION["staffID"];
+    $logged_in_user_id = $_SESSION["staffID"];
 
-  $query="INSERT INTO tenants(staffID, firstname, lastname, idno, contacts, plotno, houseno) VALUES ('$logged_in_user_id','$firstname','$lastname','$id','$contacts','$plotno','$houseno')";
+    $query="INSERT INTO owners(firstname, staffID, lastname, idNumber, propertyOwned, location, rent, agreementForm) VALUES ('$firstname', '$logged_in_user_id', '$lastname','$id','$propertyOwned','$location','$rent','$prod_img')";
 
-    if (mysqli_query($conn, $query)) {
-       echo "Tenant added successfully";
-    } else {
-       echo "Error: " . $query . "" . mysqli_error($conn);  
-    }
-    $conn->close();
+      if (mysqli_query($conn, $query)) {
+         echo "Property owner addition requested. Wait for admin approval!";
+      } else {
+         echo "Error: " . $query . "" . mysqli_error($conn);  
+      }
+      $conn->close();
   }else{
     if(headers_sent()){
         die("Hmmmmmm. It seems your session has timed out....<a href='login.php'> Click here to Login Again</a>");
@@ -31,16 +47,6 @@ if(isset($_POST['submit'])){
         exit(header("location: login.php"));
       }
   }
-
-
-    /*  $query="INSERT INTO tenants(firstname, lastname, idno, contacts, plotno, houseno) VALUES ('$firstname','$lastname','$id','$contacts','$plotno','$houseno')";
-
-      if (mysqli_query($conn, $query)) {
-         echo "Property owner added successfully";
-      } else {
-         echo "Error: " . $query . "" . mysqli_error($conn);  
-      }
-      $conn->close();*/
 
 }
 ?>
@@ -109,7 +115,7 @@ if(isset($_POST['submit'])){
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Manage Owners:</h6>
             <a class="collapse-item" href="owners.php">View</a>
-            <a class="collapse-item" href="addOwners.php">Add</a>
+            <a class="collapse-item" href="#addOwners">Add</a>
           </div>
         </div>
        </li>
@@ -132,7 +138,7 @@ if(isset($_POST['submit'])){
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Manage Tenants:</h6>
             <a class="collapse-item" href="tenants.php">View</a>
-            <a class="collapse-item" href="#addTenants">Add</a>
+            <a class="collapse-item" href="addTenants.php">Add</a>
           </div>
         </div>
        </li>
@@ -149,8 +155,8 @@ if(isset($_POST['submit'])){
         <div id="collapseProperty" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Manage Property:</h6>
-            <a class="collapse-item" href="#">View</a>
-            <a class="collapse-item" href="#">Add</a>
+            <a class="collapse-item" href="property.php">View</a>
+            <a class="collapse-item" href="addProperty.php">Add</a>
           </div>
         </div>
       </li>
@@ -348,7 +354,7 @@ if(isset($_POST['submit'])){
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php displayUser(); ?></span>
                 <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
               </a>
               <!-- Dropdown - User Information -->
@@ -395,9 +401,9 @@ if(isset($_POST['submit'])){
         </div>
       <End of Main Content -->
 
-      <div class="card shadow mb-4" id="addTenants">
+      <div class="card shadow mb-4" id="addOwners">
         <div class="card-header py-3">
-          <h6 class="m-0 font-weight-bold text-primary">Tenants</h6>
+          <h6 class="m-0 font-weight-bold text-primary">Property Owners</h6>
         </div>
 
 
@@ -413,9 +419,9 @@ if(isset($_POST['submit'])){
                   <div class="col-lg-7">
                     <div class="p-5">
                       <div class="text-center">
-                        <h1 class="h4 text-gray-900 mb-4">Add a Tenant!</h1>
+                        <h1 class="h4 text-gray-900 mb-4">Add a property owner!</h1>
                       </div>
-                      <form class="user" action="" method="POST">
+                      <form class="user" action="" method="POST" enctype="multipart/form-data">
                         <div class="form-group row">
                           <div class="col-sm-6 mb-3 mb-sm-0">
                             <input type="text" class="form-control form-control-user" name="firstname" placeholder="First Name" required="required">
@@ -427,24 +433,30 @@ if(isset($_POST['submit'])){
                         <hr>
                         <div class="form-group row">
                           <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input type="text" class="form-control form-control-user" name="idno" placeholder="National Id." required="required">
+                            <input type="text" class="form-control form-control-user" name="id" placeholder="Owner's ID" required="required">
                           </div>
                           <div class="col-sm-6">
-                            <input type="text" class="form-control form-control-user" name="contacts" placeholder="Phone Number" required="required">
+                            <input type="text" class="form-control form-control-user" name="propertyOwned" placeholder="Property Owned" required="required">
                           </div>
                         </div>
                         <hr>
                         <div class="form-group row">
                           <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input type="text" class="form-control form-control-user" name="plotno" placeholder="Plot Number" required="required">
+                            <input type="text" class="form-control form-control-user" name="location" placeholder="Location" required="required">
                           </div>
                           <div class="col-sm-6">
-                            <input type="text" class="form-control form-control-user" name="houseno" placeholder="House Number" required="required">
+                            <input type="text" class="form-control form-control-user" name="rent" placeholder="Rent" required="required">
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="form-group row">
+                          <div class="col-sm-6 mb-3 mb-sm-0">
+                            <input type="file" name="agreement" id="agreement"><label> Agreement Form </label>
                           </div>
                         </div>
                         <hr>
                         <div class="col-xs-6 col-md-6">
-                          <input type="submit" name="submit" value="Add Tenant" class="btn btn-primary btn-user btn-block" style="width: 210%">
+                          <input type="submit" name="submit" value="Add Property Owner" class="btn btn-primary btn-user btn-block" style="width: 210%">
                         </div>
                         <!--a href="login.php" class="btn btn-primary btn-user btn-block">
                           Register Account

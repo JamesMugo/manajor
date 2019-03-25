@@ -105,6 +105,9 @@ if(isset($_POST['submit']) && $_POST['InputPassword'] == $_POST['RepeatPassword'
               <div class="text-center">
                 <a class="small" href="login.php">Already have an account? Login!</a>
               </div>
+              <div class="text-center">
+                <a class="small" href="../index.php">Back to Manajor Site</a>
+              </div>
             </div>
           </div>
         </div>

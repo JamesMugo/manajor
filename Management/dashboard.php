@@ -37,7 +37,7 @@ sessionCheck();
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.php">
         <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
+          <i class="fas fa-home"></i>
         </div>
         <div class="sidebar-brand-text mx-3">Manajor <sup>2</sup></div>
       </a>
@@ -60,7 +60,7 @@ sessionCheck();
       <!--manage property owners (view, add, delete, update)-->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOwners" aria-expanded="true" aria-controls="collapseOwners">
-          <i class="fas fa-fw fa-users"></i>
+          <i class="fas fa-user-tie"></i>
           <span>Property Owners</span>
         </a>
         <div id="collapseOwners" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -356,25 +356,6 @@ sessionCheck();
 
 
 
-      <!--div class="card shadow mb-4" id="rightpanel">
-        <div class="card-header py-3">
-          <h6 class="m-0 font-weight-bold text-primary">Property Owners</h6>
-        </div>
-
-        <div class="table-responsive">
-          <?php echo displayContent(); ?>
-         
-        </div>
-
-
-
-
-      </div-->
-
-
-
-
-
     </div>
       <!-- Footer -->
       <footer class="sticky-footer bg-white">
@@ -420,21 +401,28 @@ sessionCheck();
 
   <!--profile -->
     <!-- Logout Modal-->
+
   <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
+          <div>
+            <?php echo displayStaff();?>
+          </div>
           <h5 class="modal-title" id="exampleModalLabel"><?php displayUser();?>'s profile</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
         </div>
 
-
-
-
         <div>
           <form class="user" id="editform">
+            <div>
+              <div class="col-sm-6 mb-3 mb-sm-0">
+                <input type="file" class="form-control form-control-user" name="pImg" id="pImg"><label>Upload Profile Picture</label>
+              </div> 
+            </div>
+            <hr>
             <div class="form-group row">
               <div class="col-sm-6 mb-3 mb-sm-0">
                 <input type="text" class="form-control form-control-user" name="firstname" placeholder="First Name" required="required" id="fname">
@@ -446,7 +434,7 @@ sessionCheck();
             <hr>
             <div class="form-group row">
               <div class="col-sm-6">
-                <input type="text" class="form-control form-control-user" name="username" placeholder="User Name" required="required" id="username">
+                <input type="text" class="form-control form-control-user" name="uname" placeholder="User Name" required="required" id="uname">
               </div>
               <div class="col-sm-6">
                 <input type="email" class="form-control form-control-user" name="email" placeholder="Email" required="required" id="email">
@@ -493,29 +481,31 @@ sessionCheck();
   <script src="js/demo/chart-area-demo.js"></script>
   <script src="js/demo/chart-pie-demo.js"></script>
   <script>
-    function edit(fname, lname, uname, email, rent){
+    function edit(staffid, pImg, fname, lname, uname, email){
       document.getElementById('editform').style.display = "block";
+      document.getElementById('staffid').value = staffid;
+      document.getElementById('pImg').value = pImg;
       document.getElementById('fname').value = fname;
-      document.getElementById('ownerid').value = oid;
       document.getElementById('lname').value = lname;
-      document.getElementById('rent').value = rent;
-      document.getElementById('property').value = property;
+      document.getElementById('uname').value = uname;
+      document.getElementById('email').value = email;
     }
 
     $("#updateform").click(function(){
 
-      $.post("php/update.php",
+      $.post("php/updateStaff.php",
       {
+        profileImg: $('#pImg').val(),
         firstname: $('#fname').val(),
         lastname: $('#lname').val(),
-        propertyOwned: $('#property').val(),
-        rent: $('#rent').val(),
-        ownerid: $('#ownerid').val(),
+        username: $('#uname').val(),
+        email: $('#email').val(),
+        staffid: $('#staffid').val(),
         submit: "yes"
       },
       function(data, status){
         alert(data);
-        window.location.href = "owners.php";
+        window.location.href = "dashboard.php";
       });
     });
   </script>

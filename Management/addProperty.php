@@ -19,7 +19,7 @@ if(isset($_POST['submit'])){
   $query="INSERT INTO property(staffID, plotno, ownerid, capacity, location) VALUES ('$logged_in_user_id','$plotno','$ownerid','$capacity','$location')";
 
     if (mysqli_query($conn, $query)) {
-       echo "Property added successfully";
+       echo "Property addition requested. Wait for admin approval!";
     } else {
        echo "Error: " . $query . "" . mysqli_error($conn);  
     }

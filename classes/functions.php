@@ -82,6 +82,25 @@ function displayContent(){
 	}
 
 }
+function displayStaff(){
+	global $conn;
+
+	if(isset($_SESSION["staffID"])){
+		$logged_in_user_id = $_SESSION["staffID"];
+		$query = "SELECT * FROM staff WHERE staffID = '$logged_in_user_id'";
+		$result = mysqli_query($conn,$query);
+
+		if($result){
+
+	        while($row = mysqli_fetch_array($result)) {
+	       
+	            echo 
+	                "<button onclick=\"edit(".$row['profileImg'].", '".$row['firstname']."', '".$row['lastname']."', '".$row['username']."', '".$row['email']."')\">Edit</button>";
+	            
+	        }
+	    }
+	}
+}
 
 function displayTenants(){
 	global $conn;

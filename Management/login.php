@@ -47,12 +47,12 @@ if(isset($_POST['submit'])){
       $_SESSION["firstname"]=$row["firstname"];
 
       if ($row["usertype"]=="regular") {
-        echo "<center><h3 style='color:white'>Login Successful.</h3><p style='color:black'>You will be redirected to the dashboard in 4 seconds</p></center>";
-        header("refresh:2;url=dashboard.php");
+        echo "<center><h3 style='color:white'>Login Successful.</h3><p style='color:black'>You will be redirected to the dashboard</p></center>";
+        header("refresh:1;url=dashboard.php");
         //header("location: dashboard.php");
       }else {
-        echo "<center><h3 style='color:white'>Login Successful</h3><p>You will be redirected to the dashboard in 4 seconds</p></center>";
-        header("refresh:2;url=admindashboard.php");
+        echo "<center><h3 style='color:white'>Login Successful</h3 style='color:black'><p>You will be redirected to the dashboard</p></center>";
+        header("refresh:1;url=admindashboard.php");
     }
   }
   //var_dump($row);
@@ -136,6 +136,9 @@ if(isset($_POST['submit'])){
                   </div>
                   <div class="text-center">
                     <a class="small" href="register.php">Create an Account!</a>
+                  </div>
+                  <div class="text-center">
+                    <a class="small" href="../index.php">Back to Manajor Site</a>
                   </div>
                 </div>
               </div>

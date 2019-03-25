@@ -37,7 +37,7 @@ sessionCheck();
     <div>
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="admindashboard.php">
         <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
+          <i class="fas fa-home"></i>
         </div>
         <div class="sidebar-brand-text mx-3">Manajor <sup>2</sup></div>
       </a>
@@ -62,7 +62,7 @@ sessionCheck();
     <div>
       <li class="nav-item active">
         <a class="nav-link" href="javascript:void(0)" onclick="unhide()">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <i class="fas fa-user-tie"></i>
           <span>Property owners</span></a>
       </li>
     </div>
@@ -74,7 +74,7 @@ sessionCheck();
     <div>
       <li class="nav-item active">
         <a class="nav-link" href="javascript:void(0)" onclick="unhide1()">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <i class="fas fa-users"></i>
           <span>Tenants</span></a>
       </li>
     </div>
@@ -86,7 +86,7 @@ sessionCheck();
     <div>
       <li class="nav-item active">
         <a class="nav-link" href="javascript:void(0)" onclick="unhide2()">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <i class="far fa-building"></i>
           <span>Property</span></a>
       </li>
     </div>
