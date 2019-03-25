@@ -492,6 +492,33 @@ sessionCheck();
   <!-- Page level custom scripts -->
   <script src="js/demo/chart-area-demo.js"></script>
   <script src="js/demo/chart-pie-demo.js"></script>
+  <script>
+    function edit(fname, lname, uname, email, rent){
+      document.getElementById('editform').style.display = "block";
+      document.getElementById('fname').value = fname;
+      document.getElementById('ownerid').value = oid;
+      document.getElementById('lname').value = lname;
+      document.getElementById('rent').value = rent;
+      document.getElementById('property').value = property;
+    }
+
+    $("#updateform").click(function(){
+
+      $.post("php/update.php",
+      {
+        firstname: $('#fname').val(),
+        lastname: $('#lname').val(),
+        propertyOwned: $('#property').val(),
+        rent: $('#rent').val(),
+        ownerid: $('#ownerid').val(),
+        submit: "yes"
+      },
+      function(data, status){
+        alert(data);
+        window.location.href = "owners.php";
+      });
+    });
+  </script>
 
 </body>
 
