@@ -1,7 +1,6 @@
 <?php 
 session_start();
-require('../classes/database.php');
-//require('../Model/database.php');
+require('database.php');
 
 function sessionCheck(){
 	if (!isset($_SESSION["staffID"])) {

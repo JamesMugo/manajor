@@ -1,6 +1,6 @@
 <?php
-require('Model/database.php');
-require('php/functions.php');
+require('../classes/database.php');
+require('../classes/functions.php');
 
 if(isset($_POST['submit'])){
 
@@ -48,11 +48,12 @@ if(isset($_POST['submit'])){
 
       if ($row["usertype"]=="regular") {
         echo "<center><h3 style='color:white'>Login Successful.</h3><p style='color:black'>You will be redirected to the dashboard</p></center>";
-        header("refresh:1;url=dashboard.php");
-        //header("location: dashboard.php");
+        //header("refresh:1;url=dashboard.php");
+        header("location: dashboard.php");
       }else {
         echo "<center><h3 style='color:white'>Login Successful.</h3><p style='color:black'>You will be redirected to the dashboard</p></center>";
-        header("refresh:1;url=admindashboard.php");
+        //header("refresh:1;url=admindashboard.php");
+        header("location: admindashboard.php");
     }
   }
   //var_dump($row);

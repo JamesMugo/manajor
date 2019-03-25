@@ -1,4 +1,4 @@
-<?php require('Model/database.php');
+<?php require('../classes/database.php');
 
 //if form has been submitted process it
 if(isset($_POST['submit']) && $_POST['InputPassword'] == $_POST['RepeatPassword']){
