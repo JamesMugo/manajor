@@ -1,5 +1,5 @@
-    <?php require('../classes/database.php');?>
-    <?php require('../classes/functions.php');
+    <?php require('Model/database.php');?>
+    <?php require('php/functions.php');
     sessionCheck();
     ?>
 

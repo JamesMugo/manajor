@@ -1,4 +1,4 @@
-<?php require('../classes/database.php');
+<?php require('Model/database.php');
 
 //if logged in redirect to staff page
 // if( $user->is_logged_in() ){ header('Location: dashboard.php'); exit(); }

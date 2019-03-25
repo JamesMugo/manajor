@@ -1,5 +1,5 @@
-<?php require('../../classes/database.php');?>
-<?php require('../../classes/functions.php');?>
+<?php require('../Model/database.php');?>
+<?php require('functions.php');?>
 <?php
 
 if(isset($_POST['submit'])){

@@ -1,5 +1,5 @@
-<?php require('../../classes/database.php');
-require('../../classes/functions.php');
+<?php require('../Model/database.php');
+require('functions.php');
 
 
 //if form has been submitted process it

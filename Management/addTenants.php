@@ -1,5 +1,5 @@
-<?php require('../classes/database.php');
-require('../classes/functions.php');
+<?php require('Model/database.php');
+require('php/functions.php');
 sessionCheck();
 
 //if form has been submitted process it
@@ -149,8 +149,8 @@ if(isset($_POST['submit'])){
         <div id="collapseProperty" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Manage Property:</h6>
-            <a class="collapse-item" href="#">View</a>
-            <a class="collapse-item" href="#">Add</a>
+            <a class="collapse-item" href="property.php">View</a>
+            <a class="collapse-item" href="addProperty.php">Add</a>
           </div>
         </div>
       </li>
