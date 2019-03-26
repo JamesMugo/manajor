@@ -417,12 +417,6 @@ sessionCheck();
 
         <div>
           <form class="user" id="editform">
-            <div>
-              <div class="col-sm-6 mb-3 mb-sm-0">
-                <input type="file" class="form-control form-control-user" name="pImg" id="pImg"><label>Upload Profile Picture</label>
-              </div> 
-            </div>
-            <hr>
             <div class="form-group row">
               <div class="col-sm-6 mb-3 mb-sm-0">
                 <input type="text" class="form-control form-control-user" name="firstname" placeholder="First Name" required="required" id="fname">

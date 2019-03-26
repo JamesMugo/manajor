@@ -2,6 +2,11 @@
 session_start();
 require('database.php');
 
+
+if(isset($_POST['register'])){
+	registerUsers();
+}
+
 function sessionCheck(){
 	if (!isset($_SESSION["staffID"])) {
 		header("location: login.php");
@@ -26,6 +31,86 @@ function saveToSever($tag_name){
             }
             else { return false;}
 } 
+
+function registerUsers(){
+	global $conn; 
+
+	  $FirstName = $_POST['FirstName'];
+	  $LastName = $_POST['LastName'];
+	  $Username = $_POST['Username'];
+	  $InputEmail = $_POST['InputEmail'];
+	  $InputPassword = $_POST['InputPassword'];
+	  $RepeatPassword = $_POST['RepeatPassword'];
+
+	  $pass = md5($InputPassword);
+
+	if($_POST['InputPassword'] == $_POST['RepeatPassword']){
+	  $query="INSERT INTO staff(firstname, lastname, username, password, email, usertype) VALUES ('$FirstName','$LastName','$Username','$pass','$InputEmail','regular')";
+
+	  if (mysqli_query($conn, $query)) {
+	    //header('Location: login.php');
+	     echo "New user added successfully";
+	  } else {
+	     echo "Error: " . $query . "" . mysqli_error($conn);
+	  }
+	  $conn->close();
+
+}
+}
+
+function manageUsers(){
+	global $conn;
+
+	if(isset($_SESSION["staffID"])){
+		$logged_in_user_id = $_SESSION["staffID"];
+		$query = "SELECT * FROM staff LIMIT 10";
+		$result = mysqli_query($conn,$query);
+
+		echo "<div class='table-responsive'>
+		  <table class='table table-bordered' id='dataTable' width='100%' cellspacing='0'>
+		    <thead>
+		        <tr>
+		            <td>First Name</td>
+		            <td>Last Name</td>
+		            <td>Username</td>
+		            <td>Email</td>
+		            <td>Rights</td>
+		            <td>Actions</td>
+		        </tr>
+		    </thead>
+		    <tbody> ";
+		
+		       
+		       //echo "<h3> Heeeeyyyyy".$logged_in_user_id."</h3>";
+		        // $row = mysqli_fetch_array($ ,MYSQLI_ASSOC);
+		    if($result){
+
+		        while($row = mysqli_fetch_array($result)) {
+		       
+		            echo "<tr>
+		                <td>".$row['firstname']."</td>
+		                <td>". $row['lastname']."</td>
+		                <td>".$row['username']."</td>
+		                <td>".$row['email']."</td>
+		                <td>".$row['usertype']."</td>
+		                <td><button onclick=\"edit('".$row['staffID']."','".$row['firstname']."', '".$row['lastname']."', '".$row['username']."', '".$row['email']."', '".$row['usertype']."')\">Edit</button> <button onclick=\"window.location.href='php/removeuser.php?staffID=".$row['staffID']."';\">Delete</button></td>
+		            </tr>";
+		        }
+		    }
+		    
+
+		    echo "</tbody>
+		  </table>
+		</div>";
+} else{
+		if(headers_sent()){
+			die("Hmmmmmm. It seems your session has timed out....<a href='login.php'> Click here to Login Again</a>");
+		} else{
+			exit(header("location: login.php"));
+		}
+
+	}
+}
 
 
 function displayContent(){

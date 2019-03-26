@@ -372,6 +372,7 @@
                   <div class="col-sm-6">
                     <input type="text" class="form-control form-control-user" name="lastname" placeholder="Last Name" required="required" id="lname">
                   </div>
+                  
                 </div>
                 <hr>
                 <div class="form-group row">

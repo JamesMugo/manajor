@@ -23,6 +23,9 @@ sessionCheck();
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
+  <!--Add user modal -->
+  <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"-->
+
 </head>
 
 <body id="page-top">
@@ -35,7 +38,7 @@ sessionCheck();
 
       <!-- Sidebar - Brand -->
     <div>
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="admindashboard.php">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="blank.php">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-home"></i>
         </div>
@@ -49,7 +52,7 @@ sessionCheck();
       <!-- Nav Item - Dashboard -->
     <div>
       <li class="nav-item">
-        <a class="nav-link" href="admindashboard.php">
+        <a class="nav-link" href="blank.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -88,6 +91,18 @@ sessionCheck();
         <a class="nav-link" href="javascript:void(0)" onclick="unhide2()">
           <i class="far fa-building"></i>
           <span>Property</span></a>
+      </li>
+    </div>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+
+      <!-- Property's link for approval-->
+    <div>
+      <li class="nav-item active">
+        <a class="nav-link" href="javascript:void(0)" onclick="unhide3()">
+          <i class="fas fa-users-cog"></i>
+          <span>Manage Users</span></a>
       </li>
     </div>
 
@@ -200,6 +215,104 @@ sessionCheck();
             </div>
           </div>
 
+          <div class="card shadow mb-4" id="usersPanel" style="display: none;">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Manage System Users</h6>
+
+              <!-- Logout Modal-->
+              <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#addUserModal">ADD USERS</button>
+
+              <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Fill the form below then click ADD USER</h5>
+                      <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                      </button>
+                    </div>
+
+                    <div class="modal-body">
+
+                      <form class="user" action="" method="POST">
+                        <div class="form-group row">
+                          <div class="col-sm-6 mb-3 mb-sm-0">
+                            <input type="text" class="form-control form-control-user" name="FirstName" placeholder="First Name" required="required">
+                          </div>
+                          <div class="col-sm-6">
+                            <input type="text" class="form-control form-control-user" name="LastName" placeholder="Last Name" required="required">
+                          </div>
+                        </div>
+                        <hr>
+                          <div class="form-group">
+                            <input type="text" class="form-control form-control-user" name="Username" placeholder="Username" required="required">
+                          </div>
+                        <hr>
+                        <div class="form-group">
+                          <input type="email" class="form-control form-control-user" name="InputEmail" placeholder="Email Address" required="required">
+                        </div>
+                        <div class="form-group row">
+                          <div class="col-sm-6 mb-3 mb-sm-0">
+                            <input type="password" class="form-control form-control-user" name="InputPassword" placeholder="Password" required="required">
+                          </div>
+                          <div class="col-sm-6">
+                            <input type="password" class="form-control form-control-user" name="RepeatPassword" placeholder="Repeat Password" required="required">
+                          </div>
+                        </div>
+                        <div class="col-xs-6 col-md-6">
+                          <input type="submit" name="register" value="Register Account" class="btn btn-primary btn-user btn-block" style="width: 210%">
+                        </div>
+                        <!--a href="login.php" class="btn btn-primary btn-user btn-block">
+                          Register Account
+                        </a-->
+                      </form>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="table-responsive">
+              <?php echo manageUsers(); ?>
+
+            </div>
+          
+
+            <form class="user" id="editUserform" style="display: none;">
+                <div class="form-group row">
+                  <div class="col-sm-6 mb-3 mb-sm-0">
+                    <input type="text" class="form-control form-control-user" name="fname" placeholder="First Name" required="required" id="fname">
+                  </div>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control form-control-user" name="lname" placeholder="Last Name" required="required" id="lname">
+                  </div>
+                </div>
+                <hr>
+                <div class="form-group row">
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control form-control-user" name="username" placeholder="Username" required="required" id="username">
+                  </div>
+                  <div class="col-sm-6">
+                    <input type="email" class="form-control form-control-user" name="email" placeholder="Email" required="required" id="email">
+                  </div>
+                </div>
+                <hr>
+                <div class="form-group row">
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control form-control-user" name="usertype" placeholder="User Type" required="required" id="usertype">
+                  </div>
+                </div>
+
+                <input type="hidden" name="staffid" id="staffid">
+
+                <div class="col-xs-6 col-md-6">
+                  <input type="button" name="submit" id="updateUserform" value="Update User" class="btn btn-primary btn-user btn-block" style="width: 210%">
+                </div>
+              </form>
+            </div>
+
       </div>
       <!-- End of Main Content -->
 
@@ -250,6 +363,10 @@ sessionCheck();
   <!-- Core plugin JavaScript-->
   <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
+  <!--Add user modal-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
   <script type="text/javascript">
@@ -257,17 +374,55 @@ sessionCheck();
       document.getElementById('ownerPanel').style.display='block';
       document.getElementById('tenantPanel').style.display='none';
       document.getElementById('propertyPanel').style.display='none';
+      document.getElementById('usersPanel').style.display='none';
     }
     function unhide1(){
       document.getElementById('tenantPanel').style.display='block';
       document.getElementById('ownerPanel').style.display='none';
       document.getElementById('propertyPanel').style.display='none';
+      document.getElementById('usersPanel').style.display='none';
     }
     function unhide2(){
       document.getElementById('propertyPanel').style.display='block';
       document.getElementById('tenantPanel').style.display='none';
       document.getElementById('ownerPanel').style.display='none';
+      document.getElementById('usersPanel').style.display='none';
     }
+    function unhide3(){
+      document.getElementById('usersPanel').style.display='block';
+      document.getElementById('propertyPanel').style.display='none';
+      document.getElementById('tenantPanel').style.display='none';
+      document.getElementById('ownerPanel').style.display='none';
+    }
+  </script>
+  <script>
+    function edit(staffid, fname, lname, username, email, usertype){
+      document.getElementById('editUserform').style.display = "block";
+      document.getElementById('staffid').value = staffid;
+      document.getElementById('fname').value = fname;
+      document.getElementById('lname').value = lname;
+      document.getElementById('username').value = username;
+      document.getElementById('email').value = email;
+      document.getElementById('usertype').value = usertype;
+    }
+
+    $("#updateUserform").click(function(){
+
+      $.post("php/updateUsers.php",
+      {
+        firstname: $('#fname').val(),
+        lastname: $('#lname').val(),
+        username: $('#username').val(),
+        email: $('#email').val(),
+        usertype: $('#usertype').val(),
+        staffid: $('#staffid').val(),
+        submit: "yes"
+      },
+      function(data, status){
+        alert(data);
+        window.location.href = "blank.php";
+      });
+    });
   </script>
 
 </body>
