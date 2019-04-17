@@ -32,7 +32,7 @@ if(isset($_POST['submit'])){
       echo "fail";
   }*/
 
-  $query="SELECT username, firstname, usertype, email, staffID FROM staff WHERE username = '$username' and password = '$pass' LIMIT 1";
+  $query="SELECT staffID, firstname, lastname, username, usertype, email, profileImg  FROM staff WHERE username = '$username' and password = '$pass' LIMIT 1";
 
   $result = mysqli_query($conn,$query);
   $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
@@ -40,11 +40,14 @@ if(isset($_POST['submit'])){
   $count = mysqli_num_rows($result);
   if($count == 1){
 
-      //session_start();
-      $_SESSION["username"]=$row["username"];
-      $_SESSION["usertype"]=$row["usertype"];
-      $_SESSION["staffID"]=$row["staffID"];
+      //session_start(); 
+      $_SESSION["staffID"]=$row["staffID"];     
       $_SESSION["firstname"]=$row["firstname"];
+      $_SESSION["lastname"]=$row["lastname"];
+      $_SESSION["username"]=$row["username"];
+      $_SESSION["email"]=$row["email"];
+      $_SESSION["usertype"]=$row["usertype"];
+      $_SESSION["profileImg"]=$row["profileImg"];
 
       if ($row["usertype"]=="regular") {
         echo "<center><h3 style='color:white'>Login Successful.</h3><p style='color:black'>You will be redirected to the dashboard</p></center>";

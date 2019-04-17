@@ -53,6 +53,58 @@ sessionCheck();
 
         <!-- Divider -->
         <hr class="sidebar-divider">
+              <!-- Owner's link for approval -->
+    <!--div>
+      <li class="nav-item active">
+        <a class="nav-link" href="javascript:void(0)" onclick="unhide()">
+          <i class="fas fa-user-tie"></i>
+          <span>Manage Property owners</span></a>
+      </li>
+    </div-->
+
+      <!-- Divider -->
+      <!--hr class="sidebar-divider d-none d-md-block"-->
+
+      <!-- Tenant's link for approval-->
+    <!--div>
+      <li class="nav-item active">
+        <a class="nav-link" href="javascript:void(0)" onclick="unhide1()">
+          <i class="fas fa-users"></i>
+          <span>Manage Tenants</span></a>
+      </li>
+    </div-->
+
+      <!-- Divider -->
+      <!--hr class="sidebar-divider d-none d-md-block"-->
+
+      <!-- Property's link for approval-->
+    <!--div>
+      <li class="nav-item active">
+        <a class="nav-link" href="javascript:void(0)" onclick="unhide2()">
+          <i class="far fa-building"></i>
+          <span>Manage Property</span></a>
+      </li>
+    </div-->
+
+    <!-- Divider -->
+    <!--hr class="sidebar-divider d-none d-md-block"-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         <div>
           <!--Nav Item - Property Owners Collapse Menu -->
@@ -352,6 +404,54 @@ sessionCheck();
           </div>
           <!-- End of Main Content -->
 
+          <!--div class="card shadow mb-4" id="ownerPanel" style="display: none;">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Property Owners</h6>
+            </div>
+
+            <div class="table-responsive">
+              <?php //echo displayContent(); ?>
+
+            </div>
+          </div>
+
+          <div class="card shadow mb-4" id="tenantPanel" style="display: none;">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Tenants</h6>
+            </div>
+
+            <div class="table-responsive">
+              <?php //echo displayTenants(); ?>
+
+            </div>
+          </div>
+
+          <div class="card shadow mb-4" id="propertyPanel" style="display: none;">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Property</h6>
+            </div>
+
+            <div class="table-responsive">
+              <?php //echo displayProperty(); ?>
+
+            </div>
+          </div-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           <div class="card shadow mb-4" id="rightpanel">
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary">Property Owners</h6>
@@ -454,6 +554,32 @@ sessionCheck();
                 <!-- Page level custom scripts -->
                 <script src="js/demo/chart-area-demo.js"></script>
                 <script src="js/demo/chart-pie-demo.js"></script>
+                  <!--script type="text/javascript">
+                  function unhide(){
+                    document.getElementById('ownerPanel').style.display='block';
+                    document.getElementById('tenantPanel').style.display='none';
+                    document.getElementById('propertyPanel').style.display='none';
+                    document.getElementById('usersPanel').style.display='none';
+                  }
+                  function unhide1(){
+                    document.getElementById('tenantPanel').style.display='block';
+                    document.getElementById('ownerPanel').style.display='none';
+                    document.getElementById('propertyPanel').style.display='none';
+                    document.getElementById('usersPanel').style.display='none';
+                  }
+                  function unhide2(){
+                    document.getElementById('propertyPanel').style.display='block';
+                    document.getElementById('tenantPanel').style.display='none';
+                    document.getElementById('ownerPanel').style.display='none';
+                    document.getElementById('usersPanel').style.display='none';
+                  }
+                  function unhide3(){
+                    document.getElementById('usersPanel').style.display='block';
+                    document.getElementById('propertyPanel').style.display='none';
+                    document.getElementById('tenantPanel').style.display='none';
+                    document.getElementById('ownerPanel').style.display='none';
+                  }
+                </script-->
                 <script>
                   function edit(oid, fname, lname, property, rent){
                     document.getElementById('editform').style.display = "block";

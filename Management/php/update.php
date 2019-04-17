@@ -8,9 +8,9 @@ if(isset($_POST['submit'])){
   $firstname = $_POST['firstname'];
   $lastname = $_POST['lastname'];
   $propertyOwned = $_POST['propertyOwned'];
-  $rent = $_POST['rent'];
+  $number_of_rooms = $_POST['number_of_rooms'];
 
-      $query="UPDATE owners SET firstname='$firstname',lastname='$lastname',propertyOwned='$propertyOwned',rent='$rent' WHERE ownerID='$ownerid'";
+      $query="UPDATE owners SET firstname='$firstname',lastname='$lastname',propertyOwned='$propertyOwned',number_of_rooms='$number_of_rooms' WHERE ownerID='$ownerid'";
 
       if (mysqli_query($conn, $query)) {
          echo "Update successful";

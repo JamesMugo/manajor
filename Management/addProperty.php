@@ -6,7 +6,7 @@ sessionCheck();
 //if form has been submitted process it
 if(isset($_POST['submit'])){
 
-  $plotno = $_POST['plotno'];
+  $description = $_POST['description'];
   $ownerid = $_POST['ownerid'];
   $capacity = $_POST['capacity'];
   $location = $_POST['location'];
@@ -16,7 +16,7 @@ if(isset($_POST['submit'])){
   if(isset($_SESSION["staffID"])){
   $logged_in_user_id = $_SESSION["staffID"];
 
-  $query="INSERT INTO property(staffID, plotno, ownerid, capacity, location) VALUES ('$logged_in_user_id','$plotno','$ownerid','$capacity','$location')";
+  $query="INSERT INTO property(staffID, ownerid, description, capacity, location) VALUES ('$logged_in_user_id','$ownerid','$description', '$capacity','$location')";
 
     if (mysqli_query($conn, $query)) {
        echo "Property addition requested. Wait for admin approval!";
@@ -408,7 +408,7 @@ if(isset($_POST['submit'])){
                       <form class="user" action="" method="POST">
                         <div class="form-group row">
                           <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input type="text" class="form-control form-control-user" name="plotno" placeholder="Plot Number" required="required">
+                            <input type="text" class="form-control form-control-user" name="description" placeholder="Property Owned" required="required">
                           </div>
                           <div class="col-sm-6">
                             <input type="text" class="form-control form-control-user" name="ownerid" placeholder="Onwer's Id" required="required">
@@ -417,7 +417,7 @@ if(isset($_POST['submit'])){
                         <hr>
                         <div class="form-group row">
                           <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input type="text" class="form-control form-control-user" name="capacity" placeholder="Capacity" required="required">
+                            <input type="text" class="form-control form-control-user" name="capacity" placeholder="Number of Rooms" required="required">
                           </div>
                           <div class="col-sm-6">
                             <input type="text" class="form-control form-control-user" name="location" placeholder="Location" required="required">

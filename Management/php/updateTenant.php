@@ -9,10 +9,10 @@ if(isset($_POST['submit'])){
   $lastname = $_POST['lastname'];
   $identity = $_POST['identity'];
   $contacts = $_POST['contacts'];
-  $plotno = $_POST['plotno'];
+  $propertyno = $_POST['propertyno'];
   $hseno = $_POST['hseno'];
 
-      $query="UPDATE tenants SET firstname='$firstname',lastname='$lastname',idno='$identity',contacts='$contacts',plotno='$plotno',houseno='$hseno' WHERE id='$tenid'";
+      $query="UPDATE tenants SET firstname='$firstname',lastname='$lastname',nationalid='$identity',contacts='$contacts',propertyno='$propertyno', houseno='$hseno' WHERE id='$tenid'";
 
       if (mysqli_query($conn, $query)) {
          echo "Update successful";

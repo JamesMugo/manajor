@@ -12,10 +12,12 @@ if(isset($_POST['submit']) && $_POST['InputPassword'] == $_POST['RepeatPassword'
   $InputEmail = $_POST['InputEmail'];
   $InputPassword = $_POST['InputPassword'];
   $RepeatPassword = $_POST['RepeatPassword'];
+  $defaultPic = '../img/profile.png';
+
 
   $pass = md5($InputPassword);
 
-  $query="INSERT INTO staff(firstname, lastname, username, password, email, usertype) VALUES ('$FirstName','$LastName','$Username','$pass','$InputEmail','regular')";
+  $query="INSERT INTO staff(firstname, lastname, username, password, email, usertype, profileImg) VALUES ('$FirstName','$LastName','$Username','$pass','$InputEmail','regular', '$defaultPic')";
 
   if (mysqli_query($conn, $query)) {
     header('Location: login.php');

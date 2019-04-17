@@ -307,7 +307,8 @@ sessionCheck();
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php displayUser(); ?></span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+
+                <img class="img-profile rounded-circle" src="<?php echo $_SESSION["profileImg"]; ?>">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -405,42 +406,36 @@ sessionCheck();
   <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
-        <div class="modal-header">
-          <div>
-            <?php echo displayStaff();?>
-          </div>
-          <h5 class="modal-title" id="exampleModalLabel"><?php displayUser();?>'s profile</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-
         <div>
           <form class="user" id="editform">
+            <div class="form-control-user">
+              <img class="img-profile rounded-circle" src="<?php echo $_SESSION["profileImg"]; ?>" style="display: block; margin-left: auto;
+                margin-right: auto;">
+            </div>
             <div class="form-group row">
               <div class="col-sm-6 mb-3 mb-sm-0">
-                <input type="text" class="form-control form-control-user" name="firstname" placeholder="First Name" required="required" id="fname">
+                Firstname: <input type="text" class="form-control form-control-user" value="<?php echo $_SESSION['firstname']; ?>">
               </div>
               <div class="col-sm-6">
-                <input type="text" class="form-control form-control-user" name="lastname" placeholder="Last Name" required="required" id="lname">
+                Lastname: <input type="text" class="form-control form-control-user" value="<?php echo $_SESSION['lastname']; ?>">
               </div>
             </div>
             <hr>
             <div class="form-group row">
               <div class="col-sm-6">
-                <input type="text" class="form-control form-control-user" name="uname" placeholder="User Name" required="required" id="uname">
+                Username: <input type="text" class="form-control form-control-user" value="<?php echo $_SESSION['username']; ?>">
               </div>
               <div class="col-sm-6">
-                <input type="email" class="form-control form-control-user" name="email" placeholder="Email" required="required" id="email">
+                Email: <input type="email" class="form-control form-control-user" value="<?php echo $_SESSION['email']; ?>">
               </div>
             </div>
             <hr>
 
             <input type="hidden" name="staffid" id="staffid">
 
-            <div class="col-xs-6 col-md-6">
+            <!--div class="col-xs-6 col-md-6">
               <input type="button" name="submit" id="updateform" value="Update Account" class="btn btn-primary btn-user btn-block" style="width: 210%">
-            </div>
+            </div-->
                         <!--a href="login.php" class="btn btn-primary btn-user btn-block">
                           Register Account
                         </a-->
@@ -474,35 +469,6 @@ sessionCheck();
   <!-- Page level custom scripts -->
   <script src="js/demo/chart-area-demo.js"></script>
   <script src="js/demo/chart-pie-demo.js"></script>
-  <script>
-    function edit(staffid, pImg, fname, lname, uname, email){
-      document.getElementById('editform').style.display = "block";
-      document.getElementById('staffid').value = staffid;
-      document.getElementById('pImg').value = pImg;
-      document.getElementById('fname').value = fname;
-      document.getElementById('lname').value = lname;
-      document.getElementById('uname').value = uname;
-      document.getElementById('email').value = email;
-    }
-
-    $("#updateform").click(function(){
-
-      $.post("php/updateStaff.php",
-      {
-        profileImg: $('#pImg').val(),
-        firstname: $('#fname').val(),
-        lastname: $('#lname').val(),
-        username: $('#uname').val(),
-        email: $('#email').val(),
-        staffid: $('#staffid').val(),
-        submit: "yes"
-      },
-      function(data, status){
-        alert(data);
-        window.location.href = "dashboard.php";
-      });
-    });
-  </script>
 
 </body>
 

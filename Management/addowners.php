@@ -11,7 +11,7 @@ if(isset($_POST['submit'])){
   $id = $_POST['id'];
   $propertyOwned = $_POST['propertyOwned'];
   $location = $_POST['location'];
-  $rent = $_POST['rent'];
+  $number_of_rooms = $_POST['number_of_rooms'];
   //$agreement = $_POST['agreement'];
 
                   //validate image
@@ -32,7 +32,7 @@ if(isset($_POST['submit'])){
   if(isset($_SESSION["staffID"])){
     $logged_in_user_id = $_SESSION["staffID"];
 
-    $query="INSERT INTO owners(firstname, staffID, lastname, idNumber, propertyOwned, location, rent, agreementForm) VALUES ('$firstname', '$logged_in_user_id', '$lastname','$id','$propertyOwned','$location','$rent','$prod_img')";
+    $query="INSERT INTO owners(firstname, staffID, lastname, idNumber, propertyOwned, location, number_of_rooms, agreementForm) VALUES ('$firstname', '$logged_in_user_id', '$lastname','$id','$propertyOwned','$location','$number_of_rooms','$prod_img')";
 
       if (mysqli_query($conn, $query)) {
          echo "Property owner addition requested. Wait for admin approval!";
@@ -445,7 +445,7 @@ if(isset($_POST['submit'])){
                             <input type="text" class="form-control form-control-user" name="location" placeholder="Location" required="required">
                           </div>
                           <div class="col-sm-6">
-                            <input type="text" class="form-control form-control-user" name="rent" placeholder="Rent" required="required">
+                            <input type="text" class="form-control form-control-user" name="number_of_rooms" placeholder="Number of Rooms" required="required">
                           </div>
                         </div>
                         <hr>

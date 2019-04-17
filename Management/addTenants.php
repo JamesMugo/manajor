@@ -7,16 +7,16 @@ if(isset($_POST['submit'])){
 
   $firstname = $_POST['firstname'];
   $lastname = $_POST['lastname'];
-  $id = $_POST['idno'];
+  $nationalid = $_POST['nationalid'];
   $contacts = $_POST['contacts'];
-  $plotno = $_POST['plotno'];
+  $propertyno = $_POST['propertyno'];
   $houseno = $_POST['houseno'];
 
 
   if(isset($_SESSION["staffID"])){
   $logged_in_user_id = $_SESSION["staffID"];
 
-  $query="INSERT INTO tenants(staffID, firstname, lastname, idno, contacts, plotno, houseno) VALUES ('$logged_in_user_id','$firstname','$lastname','$id','$contacts','$plotno','$houseno')";
+  $query="INSERT INTO tenants(staffID, firstname, lastname, nationalid, contacts, propertyno, houseno) VALUES ('$logged_in_user_id','$firstname','$lastname','$nationalid','$contacts','$propertyno','$houseno')";
 
     if (mysqli_query($conn, $query)) {
        echo "Tenant addition requested. Wait for admin approval!";
@@ -427,7 +427,7 @@ if(isset($_POST['submit'])){
                         <hr>
                         <div class="form-group row">
                           <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input type="text" class="form-control form-control-user" name="idno" placeholder="National Id." required="required">
+                            <input type="text" class="form-control form-control-user" name="nationalid" placeholder="National Id." required="required">
                           </div>
                           <div class="col-sm-6">
                             <input type="text" class="form-control form-control-user" name="contacts" placeholder="Phone Number" required="required">
@@ -436,7 +436,7 @@ if(isset($_POST['submit'])){
                         <hr>
                         <div class="form-group row">
                           <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input type="text" class="form-control form-control-user" name="plotno" placeholder="Plot Number" required="required">
+                            <input type="text" class="form-control form-control-user" name="propertyno" placeholder="Property Number" required="required">
                           </div>
                           <div class="col-sm-6">
                             <input type="text" class="form-control form-control-user" name="houseno" placeholder="House Number" required="required">
